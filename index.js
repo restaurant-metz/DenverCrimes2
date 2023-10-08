@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const app = express();
+const bodyParser = require('body-parser');
 const port = 3000;
 
 // Servir les fichiers statiques depuis le répertoire 'public'
@@ -23,9 +24,14 @@ db.connect((err) => {
   console.log('Connecté à la base de données MariaDB');
 });
 
-// Définir une route pour récupérer des données depuis la base de données
-app.get('/donnees', (req, res) => {
-  db.query('SELECT * FROM crimes_2021 LIMIT 10', (err, results) => {
+// Utilisez bodyParser pour analyser les données JSON
+app.use(bodyParser.json());
+
+// Mettez à jour la route pour gérer la requête POST
+app.post('/donnees', (req, res) => {
+  const query = req.body.query; // Obtenez la requête SQL du corps de la demande
+
+  db.query(query, (err, results) => {
     if (err) {
       console.error('Erreur lors de la récupération des données :', err);
       res.status(500).send('Erreur serveur');

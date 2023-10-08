@@ -6,20 +6,44 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="logo">
+    <div class="menu_gauche">
+        <div class="menu">
             <h1>Denver Crimes Visualization</h1>
-        </div>
-        <div class="nav">
             <ul>
-                <li>dashboard</li>
-                <li>page2</li>
-                <li>contact</li>
+                <li><button class="globale">Globale</button></li>
+                <li><button>Quartiers</button></li>
+                <li><button>Districts</button></li>
+                <li><button>Precincts</button></li>
             </ul>
         </div>
-    </header>
-    <div>
-        <canvas id="myChart" width="400" height="200"></canvas>
+        <div class="filtres">
+            <h3>Filtrer par :</h3>
+            <select id="annee">
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+                <option value="toutes">toutes</option>
+            </select>
+        </div>
+    </div>
+    <div class="contenu">
+        <div class="un"></div>
+        <div class="deux"></div>
+        <div class="trois"></div>
+        <div class="quatre">
+            <canvas id="myChart" class="my_chart"></canvas>
+        </div>
+        <div class="charts cinq">
+        </div>
     </div>
     <script src="main.js"></script>
 </body>
