@@ -99,3 +99,29 @@
 .globale {
   background-color: rgb(105, 236, 236);
 }
+
+/*
+ACCUEIL
+*/
+
+.menu_accueil{
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.contenu_accueil {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.contenu_accueil p {
+  width: 50%;
+  text-align: justify;
+  padding-top: 20px;
+}
+
+.contenu_accueil h2 {
+  padding-top: 20px;
+}

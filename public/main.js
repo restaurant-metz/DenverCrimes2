@@ -11,34 +11,34 @@ document.addEventListener('DOMContentLoaded', function() {
         datasets: [{
             label: 'Répartition par mois',
             data: [6175,5279,5641,5815,6467,6374,6614,6397,6034,6119,5904,6135], // Ajoutez les données de 2021 ici
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',   // Couleur de la barre 1
-                'rgba(54, 162, 235, 0.2)',  // Couleur de la barre 2
-                'rgba(255, 206, 86, 0.2)',  // Couleur de la barre 3
-                'rgba(75, 192, 192, 0.2)',  // Couleur de la barre 4
-                'rgba(153, 102, 255, 0.2)',  // Couleur de la barre 5
-                'rgba(255, 99, 131, 0.2)',   // Couleur de la barre 1
-                'rgba(54, 162, 235, 0.2)',  // Couleur de la barre 2
-                'rgba(255, 206, 86, 0.2)',  // Couleur de la barre 3
-                'rgba(75, 192, 192, 0.2)',  // Couleur de la barre 4
-                'rgba(153, 102, 255, 0.2)',  // Couleur de la barre 5    
-                'rgba(75, 192, 192, 0.2)',  // Couleur de la barre 4
-                'rgba(153, 102, 255, 0.2)'  // Couleur de la barre 5
+            backgroundColor: [ 
+                'rgba(255, 99, 71, 0.9)',
+                'rgba(65, 105, 225, 0.9)',
+                'rgba(60, 179, 113, 0.9)',
+                'rgba(255, 165, 0, 0.9)',
+                'rgba(186, 85, 211, 0.9)',
+                'rgba(255, 215, 0, 0.9)',
+                'rgba(70, 130, 180, 0.9)',
+                'rgba(0, 128, 0, 0.9)',
+                'rgba(255, 192, 203, 0.9)',
+                'rgba(128, 0, 128, 0.9)',
+                'rgba(210, 105, 30, 0.9)',
+                'rgba(0, 128, 128, 0.9)'
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',    // Bordure de la barre 1
-                'rgba(54, 162, 235, 1)',   // Bordure de la barre 2
-                'rgba(255, 206, 86, 1)',   // Bordure de la barre 3
-                'rgba(75, 192, 192, 1)',   // Bordure de la barre 4
-                'rgba(153, 102, 255, 1)',  // Bordure de la barre 5
-                'rgba(255, 99, 132, 1)',    // Bordure de la barre 1
-                'rgba(54, 162, 235, 1)',   // Bordure de la barre 2
-                'rgba(255, 206, 86, 1)',   // Bordure de la barre 3
-                'rgba(75, 192, 192, 1)',   // Bordure de la barre 4
-                'rgba(153, 102, 255, 1)',   // Bordure de la barre 5
-                'rgba(75, 192, 192, 1)',   // Bordure de la barre 4
-                'rgba(153, 102, 255, 1)'   // Bordure de la barre 5
-              ],
+                'rgba(255, 99, 71, 1)',
+                'rgba(65, 105, 225, 1)',
+                'rgba(60, 179, 113, 1)',
+                'rgba(255, 165, 0, 1)',
+                'rgba(186, 85, 211, 1)',
+                'rgba(255, 215, 0, 1)',
+                'rgba(70, 130, 180, 1)',
+                'rgba(0, 128, 0, 1)',
+                'rgba(255, 192, 203, 1)',
+                'rgba(128, 0, 128, 1)',
+                'rgba(210, 105, 30, 1)',
+                'rgba(0, 128, 128, 1)'
+            ],
             borderWidth: 1
         }]
     };
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
             plugins: {
                 legend: {
                 labels: {
-                    color: 'red', // Changer la couleur du texte des labels
+                    color: 'black', // Changer la couleur du texte des labels
                 }
                 }
             }
