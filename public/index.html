@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>Graphique avec Chart.js</title>
+  <link href='https://fonts.googleapis.com/css?family=Revalia' rel='stylesheet'>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="menu_gauche">
         <div class="menu">
-            <h1>Denver Crimes Visualization</h1>
+            <h1 class="titre">Denver Crimes Visualization</h1>
             <ul>
                 <li><button class="globale">Globale</button></li>
                 <li><button>Quartiers</button></li>
@@ -33,6 +34,9 @@
                 <option value="2010">2010</option>
                 <option value="toutes">toutes</option>
             </select>
+            <div id="connection-status">
+                <button id="connection-button">Connexion en cours...</button>
+            </div>
         </div>
     </div>
     <div class="contenu">
@@ -44,7 +48,10 @@
         <div class="quatre">
             <canvas id="myChart" class="my_chart"></canvas>
         </div>
-        <div class="charts cinq">
+        <div id="cinq" class="cinq">
+            <div class="nombres1"></div>
+            <div class="nombres2"></div>
+            <div class="nombres3"></div>
         </div>
     </div>
     <script src="main.js"></script>

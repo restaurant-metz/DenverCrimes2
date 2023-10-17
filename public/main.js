@@ -58,9 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                labels: {
-                    color: 'black', // Changer la couleur du texte des labels
-                }
+                    display:false
                 }
             }
         }
@@ -284,3 +282,37 @@ document.getElementById('annee').addEventListener('change', function() {
 
     // ...
 });
+
+const connectionStatusElement = document.getElementById('connection-status');
+const connectionButton = document.getElementById('connection-button');
+
+// Fonction pour mettre à jour l'état de connexion
+function updateConnectionStatus() {
+  // Effectuez une requête AJAX au point de terminaison '/connection-status' pour obtenir l'état de la connexion
+  fetch('/connection-status')
+    .then(response => response.json())
+    .then(data => {
+      const { status, color } = data;
+      connectionStatusElement.textContent = status;
+      connectionStatusElement.style.color = color;
+
+      // Mettez à jour le texte du bouton avec l'état de la connexion
+      connectionButton.textContent = status;
+      connectionButton.style.color = color;
+
+      // Si l'état de connexion indique une retentative, vous pouvez afficher un message ou effectuer des actions supplémentaires ici
+      if (status === "Retentative de connexion") {
+        // Affichez un message ou effectuez des actions supplémentaires si nécessaire
+      }
+    })
+    .catch(error => {
+      console.error('Erreur lors de la récupération de l\'état de la connexion :', error);
+    });
+}
+
+// Mettez à jour l'état de connexion toutes les quelques secondes (par exemple, toutes les 5 secondes)
+setInterval(updateConnectionStatus, 1000);
+
+// Mettez à jour l'état de connexion lors du chargement de la page
+updateConnectionStatus();
+

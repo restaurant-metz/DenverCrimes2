@@ -4,25 +4,48 @@ const app = express();
 const bodyParser = require('body-parser');
 const port = 3000;
 
+let connectionStatus = "Connexion en cours...";
+let connectionColor = "green"; // Couleur initiale en vert
+
 // Servir les fichiers statiques depuis le répertoire 'public'
 app.use(express.static('public'));
 
 // Configuration de la base de données
-const db = mysql.createConnection({
+const dbConfig = {
   host: 'devbdd.iutmetz.univ-lorraine.fr',
   user: 'basbunar2u_appli',
   password: '31912712',
   database: 'basbunar2u_denverCrimes'
-});
+};
 
-// Connexion à la base de données
-db.connect((err) => {
-  if (err) {
-    console.error('Erreur de connexion à la base de données :', err);
-    return;
-  }
-  console.log('Connecté à la base de données MariaDB');
-});
+let db;
+
+// Fonction pour mettre à jour le statut de connexion
+function updateConnectionStatus(status, color) {
+  connectionStatus = status;
+  connectionColor = color;
+}
+
+// Fonction pour tenter de se connecter à la base de données
+function tryDatabaseConnection() {
+  db = mysql.createConnection(dbConfig);
+  
+  db.connect((err) => {
+    if (err) {
+      updateConnectionStatus('Erreur de connexion à la base de données : ' + err.message, 'red');
+      console.error(connectionStatus);
+
+      // Réessayer la connexion après un délai (par exemple, 5 secondes)
+      setTimeout(tryDatabaseConnection, 5000);
+    } else {
+      updateConnectionStatus('Connexion à la base de données établie', 'green');
+      console.log(connectionStatus);
+    }
+  });
+}
+
+// Initialiser la tentative de connexion
+tryDatabaseConnection();
 
 // Utilisez bodyParser pour analyser les données JSON
 app.use(bodyParser.json());
@@ -45,3 +68,12 @@ app.post('/donnees', (req, res) => {
 app.listen(port, () => {
   console.log(`Serveur Node.js en cours d'exécution sur le port ${port}`);
 });
+
+// Exposez l'état de la connexion à un point de terminaison
+app.get('/connection-status', (req, res) => {
+  res.json({ status: connectionStatus, color: connectionColor });
+});
+
+// ...
+
+
