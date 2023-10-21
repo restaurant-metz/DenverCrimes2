@@ -176,6 +176,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    /*
+     // Afficher le loader avant le rendu du graphique
+    myChart.options.animation.beforeRender = function() {
+        $(".loader").show();
+    };
+    
+    // Cacher le loader après le rendu du graphique
+    myChart.options.animation.afterRender = function() {
+        $(".loader").hide();
+    };
+    */
+
 });
 
 // Écoutez les changements de sélection dans la liste déroulante
