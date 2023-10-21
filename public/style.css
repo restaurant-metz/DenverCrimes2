@@ -3,22 +3,22 @@
     padding: 0;
     box-sizing: border-box;
 }
- body{
-    height: 100vh;
-    max-height: 100vh;
-    width: 100%;
-    max-width: 100vw;
-    background-image: url("img/denver.jpg");
-    /*filter: blur(8px);
-    -webkit-filter: blur(8px);*/
-    backdrop-filter: blur(2px);
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
- }
+body{
+  height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  background-image: url("img/denver.jpg");
+  /*filter: blur(8px);
+  -webkit-filter: blur(8px);*/
+  backdrop-filter: blur(2px);
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
 
- .menu_gauche {
+.menu_gauche {
     height: 95%;
     width: 15%;
     display: grid;
@@ -26,97 +26,96 @@
     grid-template-rows: 1fr 1fr;
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
- }
+}
 
- .menu_gauche div {
-  background-color: rgba(39, 39, 39, 0.75);
-  border-radius: 50px;
-  padding: 20px 15px;
- }
+.menu_gauche div {
+background-color: rgba(39, 39, 39, 0.75);
+border-radius: 50px;
+padding: 20px 15px;
+}
 
- .menu_gauche ul {
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
- }
-
- .menu{
+.menu_gauche ul {
+  list-style-type: none;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
- }
- 
- .contenu {
-    background-color: rgba(255, 255, 255, 0.503);
-    height: 95%;
-    width: 80%;
-    border-radius: 50px;
-    padding: 15px;
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
- }
+  gap: 10px;
+}
 
- .un {
-    grid-column: 1/6;
-    grid-row: 1;
-  }
-  .deux {
-    grid-column: 6/11;
-    grid-row: 1;
-  }
-  .trois {
-    grid-column: 1/5;
-    grid-row: 2;
-  }
-  .quatre{
-    grid-column: 5/9;
-    grid-row: 2;
-  }
-  .cinq {
-    grid-column: 9/11;
-    grid-row: 2;
-  }
+.menu{
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+align-items: center;
+}
 
-  #cinq {
-    display: grid;
-    background-color: rgba(240, 248, 255, 0);
-    grid-row: 1fr 1fr 1fr;
-    padding: 0;
-    grid-gap: 10px;
-  }
+.contenu {
+  background-color: rgba(255, 255, 255, 0.503);
+  height: 95%;
+  width: 80%;
+  border-radius: 50px;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
 
-  #cinq .nombres{
-    background-color: rgb(255, 255, 255);
-    border-radius: 40px;
-  }
+.un {
+  grid-column: 1/6;
+  grid-row: 1;
+}
+.deux {
+  grid-column: 6/11;
+  grid-row: 1;
+}
+.trois {
+  grid-column: 1/5;
+  grid-row: 2;
+}
+.quatre{
+  grid-column: 5/9;
+  grid-row: 2;
+}
+.cinq {
+  grid-column: 9/11;
+  grid-row: 2;
+}
 
- .contenu div {
-    background-color: rgb(255, 255, 255);
-    color: rgb(255, 255, 255);
-    border-radius: 50px;
-    padding: 15px;
-    width: 100%;
-    height: 100%;
- }
+#cinq {
+  display: grid;
+  background-color: rgba(240, 248, 255, 0);
+  grid-row: 1fr 1fr 1fr;
+  padding: 0;
+  grid-gap: 10px;
+}
 
- .menu_gauche ul button {
-    width: 120px;
-    padding: 10px 20px;
-    border-radius: 100px;
-    border: none;
- }
+#cinq .nombres{
+  background-color: rgb(255, 255, 255);
+  border-radius: 40px;
+}
+
+.contenu div {
+  /*background-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  padding: 15px;
+  */
+  border-radius: 50px;
+}
+
+.menu_gauche ul button {
+  width: 120px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  border: none;
+}
 
 .my_chart {
   width: 100%;
   height: 100%;
 }
 
-.globale {
+.current {
   background-color: rgb(72, 157, 255);
 }
 

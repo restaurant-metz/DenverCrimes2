@@ -74,6 +74,4 @@ app.get('/connection-status', (req, res) => {
   res.json({ status: connectionStatus, color: connectionColor });
 });
 
-// ...
-
 

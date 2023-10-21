@@ -1,4 +1,3 @@
-// Créez une variable pour stocker le graphique
 let myChart;
 let myDonutChart;
 
@@ -6,13 +5,37 @@ let myDonutChart;
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('myChart').getContext('2d');
     const donutChartCtx = document.getElementById('donutChart').getContext('2d');
-    
-    // Initialisation du graphique avec les données de 2021
     const initialData = {
-        labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'], // Ajoutez les noms des mois de 2021 ici
+        labels: [
+            'Janvier', 
+            'Février', 
+            'Mars', 
+            'Avril', 
+            'Mai', 
+            'Juin', 
+            'Juillet', 
+            'Août', 
+            'Septembre', 
+            'Octobre', 
+            'Novembre', 
+            'Décembre'
+        ],
         datasets: [{
-            label: 'Répartition par mois',
-            data: [6175,5279,5641,5815,6467,6374,6614,6397,6034,6119,5904,6135], // Ajoutez les données de 2021 ici
+            label: 'Nombre de crimes par mois',
+            data: [
+                6175,
+                5279,
+                5641,
+                5815,
+                6467,
+                6374,
+                6614,
+                6397,
+                6034,
+                6119,
+                5904,
+                6135
+            ],
             backgroundColor: [ 
                 'rgba(255, 99, 71, 0.9)',
                 'rgba(65, 105, 225, 0.9)',
@@ -133,26 +156,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// ...
-
 // Écoutez les changements de sélection dans la liste déroulante
 document.getElementById('annee').addEventListener('change', function() {
     const selectedYear = this.value; // Obtenez l'année sélectionnée
-
-    // Mettez à jour la requête SQL en fonction de l'année sélectionnée
-    const query = `
+    const query_month_count = `
         SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
         FROM crimes_${selectedYear}
         GROUP BY month(first_occurrence_date);
     `;
-
+    const query_avg_victim_count = `
+        SELECT SUM(victim_count)/COUNT(victim_count) AS average_victim_count
+        FROM crimes_${selectedYear}
+    `;
+    const query_category_count = `
+        SELECT offense_category_id, count(*) as nombre
+        FROM crimes_${selectedYear}
+        GROUP BY offense_category_id;
+    `;
+    const query_sum_victims = `
+        SELECT SUM(victim_count) AS average_victim_count
+        FROM crimes_${selectedYear}
+    `;
+    const query_count_incidents = `
+        SELECT COUNT(incident_id) AS average_victim_count
+        FROM crimes_${selectedYear}
+    `;
     // Utilisez fetch pour récupérer les données avec la nouvelle requête
     fetch('/donnees', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ query: query })
+        body: JSON.stringify({ query: query_month_count })
     })
     .then(response => response.json())
     .then(data => {
@@ -180,20 +215,10 @@ document.getElementById('annee').addEventListener('change', function() {
         myChart.update(); // Mettez à jour le graphique
 
         // Affichez les données dans la console
-        console.log('Données récupérées depuis le serveur :', data);
+        //console.log('Données récupérées depuis le serveur :', data);
     });
 
-});
-// Écoutez les changements de sélection dans la liste déroulante
-document.getElementById('annee').addEventListener('change', function() {
-    const selectedYear = this.value; // Obtenez l'année sélectionnée
-
-    // Mettez à jour la requête SQL en fonction de l'année sélectionnée
-    const query = `
-        SELECT offense_category_id, count(*) as nombre
-        FROM crimes_${selectedYear}
-        GROUP BY offense_category_id;
-    `;
+    // ------------------------------------------------
 
     // Utilisez fetch pour récupérer les données avec la nouvelle requête
     fetch('/donnees', {
@@ -201,7 +226,30 @@ document.getElementById('annee').addEventListener('change', function() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ query: query })
+        body: JSON.stringify({ query: query_avg_victim_count })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Affichez la réponse dans le div "resultatRequete"
+        const resultatRequete = document.getElementById('resultatRequete');
+        resultatRequete.textContent = `${data[0].average_victim_count}`;
+
+        // Affichez les données dans la console
+        //console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
+    })
+    .catch(error => {
+        console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
+    });
+
+    // ----------------------------------------------------------------------------------
+
+    // Utilisez fetch pour récupérer les données avec la nouvelle requête
+    fetch('/donnees', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query: query_category_count })
     })
     .then(response => response.json())
     .then(data => {
@@ -210,11 +258,6 @@ document.getElementById('annee').addEventListener('change', function() {
         const values = data.map(item => item.nombre);
 
         // Vérifiez si le graphique donut existe déjà
-        if (myDonutChart) {
-            myDonutChart.destroy(); // Détruire le graphique précédent si présent
-        }
-
-         // Vérifiez si le graphique donut existe déjà
         if (myDonutChart) {
             myDonutChart.destroy(); // Détruire le graphique précédent si présent
         }
@@ -277,42 +320,125 @@ document.getElementById('annee').addEventListener('change', function() {
         });
         
             // Affichez les données dans la console
-            console.log('Données récupérées depuis le serveur :', data);
+            //console.log('Données récupérées depuis le serveur :', data);
         });
 
-    // ...
+        // ------------------------------------------------------------------------------------------------------------------
+    
+        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        fetch('/donnees', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query: query_sum_victims })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Affichez la réponse dans le div "resultatRequete"
+            const resultatRequete = document.getElementById('nombres2');
+            resultatRequete.textContent = `${data[0].average_victim_count}`;
+    
+            // Affichez les données dans la console
+            console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
+        });
+
+
+        // ------------------------------------------------------------------------
+
+        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        fetch('/donnees', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query: query_count_incidents })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Affichez la réponse dans le div "resultatRequete"
+            const resultatRequete = document.getElementById('nombres3');
+            resultatRequete.textContent = `${data[0].average_victim_count}`;
+
+            // Affichez les données dans la console
+            console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
+        });
+
+        // Mettez à jour le graphique en donut en utilisant une requête similaire ici
+
+        // Mettez à jour l'état de connexion ici
+        updateConnectionStatus();
+
 });
 
+
+//------------------------------------------------------------------------------------------------------------
 const connectionStatusElement = document.getElementById('connection-status');
 const connectionButton = document.getElementById('connection-button');
 
 // Fonction pour mettre à jour l'état de connexion
 function updateConnectionStatus() {
   // Effectuez une requête AJAX au point de terminaison '/connection-status' pour obtenir l'état de la connexion
-  fetch('/connection-status')
+    fetch('/connection-status')
     .then(response => response.json())
     .then(data => {
-      const { status, color } = data;
-      connectionStatusElement.textContent = status;
-      connectionStatusElement.style.color = color;
+        const { status, color } = data;
+        connectionStatusElement.textContent = status;
+        connectionStatusElement.style.color = color;
 
-      // Mettez à jour le texte du bouton avec l'état de la connexion
-      connectionButton.textContent = status;
-      connectionButton.style.color = color;
+        // Mettez à jour le texte du bouton avec l'état de la connexion
+        connectionButton.textContent = status;
+        connectionButton.style.color = color;
 
-      // Si l'état de connexion indique une retentative, vous pouvez afficher un message ou effectuer des actions supplémentaires ici
-      if (status === "Retentative de connexion") {
+        // Si l'état de connexion indique une retentative, vous pouvez afficher un message ou effectuer des actions supplémentaires ici
+        if (status === "Retentative de connexion") {
         // Affichez un message ou effectuez des actions supplémentaires si nécessaire
-      }
+        }
     })
     .catch(error => {
-      console.error('Erreur lors de la récupération de l\'état de la connexion :', error);
+        console.error('Erreur lors de la récupération de l\'état de la connexion :', error);
     });
 }
 
 // Mettez à jour l'état de connexion toutes les quelques secondes (par exemple, toutes les 5 secondes)
-setInterval(updateConnectionStatus, 1000);
+setInterval(updateConnectionStatus, 1500);
 
 // Mettez à jour l'état de connexion lors du chargement de la page
 updateConnectionStatus();
 
+// ----------------------------------------------------------------------------------------
+
+// Récupérer les coordonnées depuis la base de données
+var coordinates = [
+    [48.856614, 2.3522219],
+    [51.507351, -0.1277583],
+    [40.712776, -74.005974]
+];
+
+// Créer une carte Leaflet
+var mymap = L.map('leafletMap').setView([39.739377, -104.990253], 12);
+
+// Ajouter une couche de tuiles OpenStreetMap
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+maxZoom: 18
+}).addTo(mymap);
+
+// Ajouter des marqueurs à la carte
+for (var i = 0; i < coordinates.length; i++) {
+L.marker(coordinates[i]).addTo(mymap);
+}
+
+// -------------------------------------------------
+
+const query_month_count = `
+        SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
+        FROM crimes_${selectedYear}
+        GROUP BY month(first_occurrence_date);
+    `;

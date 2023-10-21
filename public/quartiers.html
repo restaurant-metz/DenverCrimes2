@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Denver Crimes Visualization</title>
+    <link href='https://fonts.googleapis.com/css?family=Revalia' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu_gauche">
+        <div class="menu">
+            <a href="./accueil.html"><h1 class="titre">Denver Crimes Visualization</h1></a>
+            <ul>
+                <li><a href="./index.html"><button>Globale</button></a></li>
+                <li><a href="./quartiers.html"><button class="current">Quartiers</button></a></li>
+                <li><a href="./districts.html"><button>Districts</button></a></li>
+                <li><a href="./precincts.html"><button>Precincts</button></a></li>
+            </ul>
+        </div>
+        <div class="filtres">
+            <h3>Filtrer par :</h3>
+            <select id="annee">
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+                <option value="toutes">toutes</option>
+            </select>
+            <div id="connection-status">
+                <button id="connection-button">Connexion en cours...</button>
+            </div>
+        </div>
+    </div>
+    <div class="contenu">
+        <div class="un">
+            <div id="d"></div>
+        </div>
+        <div class="deux"></div>
+        <div class="trois">
+            <canvas id="donutChart"></canvas>
+        </div>
+        <div class="quatre">
+            <canvas id="myChart" class="my_chart"></canvas>
+        </div>
+        <div id="cinq" class="cinq">
+            <div id="resultatRequete" style="color: black;">1.0197</div>
+            <div id="nombres2" style="color: black;">74390</div>
+            <div id="nombres3" style="color: black;">72954</div>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

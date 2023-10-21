@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Graphique avec Chart.js</title>
-  <link href='https://fonts.googleapis.com/css?family=Revalia' rel='stylesheet'>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="style.css">
+    <title>Denver Crimes Visualization</title>
+    <link href='https://fonts.googleapis.com/css?family=Revalia' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="menu_gauche">
         <div class="menu">
-            <h1 class="titre">Denver Crimes Visualization</h1>
+            <a href="./accueil.html"><h1 class="titre">Denver Crimes Visualization</h1></a>
             <ul>
-                <li><button class="globale">Globale</button></li>
-                <li><button>Quartiers</button></li>
-                <li><button>Districts</button></li>
-                <li><button>Precincts</button></li>
+                <li><a href="./index.html"><button class="current">Globale</button></a></li>
+                <li><a href="./quartiers.html"><button>Quartiers</button></a></li>
+                <li><a href="./districts.html"><button>Districts</button></a></li>
+                <li><a href="./precincts.html"><button>Precincts</button></a></li>
             </ul>
         </div>
         <div class="filtres">
@@ -40,7 +43,11 @@
         </div>
     </div>
     <div class="contenu">
-        <div class="un"></div>
+        <div class="un">
+            <div id="leafletMap" style="width: 100%; height: 100%;"> <!-- -->
+
+            </div>
+        </div>
         <div class="deux"></div>
         <div class="trois">
             <canvas id="donutChart"></canvas>
@@ -49,11 +56,12 @@
             <canvas id="myChart" class="my_chart"></canvas>
         </div>
         <div id="cinq" class="cinq">
-            <div class="nombres1"></div>
-            <div class="nombres2"></div>
-            <div class="nombres3"></div>
+            <div id="resultatRequete" style="color: black;">1.0197</div>
+            <div id="nombres2" style="color: black;">74390</div>
+            <div id="nombres3" style="color: black;">72954</div>
         </div>
     </div>
+    
     <script src="main.js"></script>
 </body>
 </html>
