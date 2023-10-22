@@ -3,17 +3,17 @@ let myDonutChart;
 
 
 // Créer une carte Leaflet
-var mymap = L.map('leafletMap').setView([39.739377, -104.990253], 10);
+var mymap = L.map('leafletMap').setView([39.739377, -104.990253], 18);
 
 // Ajouter une couche de tuiles OpenStreetMap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-    maxZoom: 50
+    maxZoom: 19
 }).addTo(mymap);
 
 var markers = L.markerClusterGroup();
 
-var map = L.map('heatMap').setView([39.739377, -104.990253], 13);
+var map = L.map('heatMap').setView([39.739377, -104.990253], 12);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -423,12 +423,11 @@ document.getElementById('annee').addEventListener('change', function() {
 
         // -------------------------------------------------
         const query_geo_lat_lon = `
-            SELECT DISTINCT geo_lat, geo_lon 
+            SELECT geo_lat, geo_lon
             FROM crimes_${selectedYear}
             WHERE geo_lat IS NOT NULL
             AND geo_lon IS NOT NULL;
-        `;
-
+        `; 
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -501,5 +500,3 @@ setInterval(updateConnectionStatus, 1500);
 
 // Mettez à jour l'état de connexion lors du chargement de la page
 updateConnectionStatus();
-
-

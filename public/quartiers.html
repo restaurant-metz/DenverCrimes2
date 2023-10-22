@@ -2,10 +2,14 @@
 <html>
 <head>
     <title>Denver Crimes Visualization</title>
-    <link href='https://fonts.googleapis.com/css?family=Revalia' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Revalia' rel='stylesheet'>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -21,45 +25,134 @@
             </ul>
         </div>
         <div class="filtres">
-            <h3>Filtrer par :</h3>
-            <select id="annee">
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-                <option value="2018">2018</option>
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
-                <option value="2014">2014</option>
-                <option value="2013">2013</option>
-                <option value="2012">2012</option>
-                <option value="2011">2011</option>
-                <option value="2010">2010</option>
-                <option value="toutes">toutes</option>
-            </select>
+
+            <form id="myForm">
+                <label for="annee_quartiers">Sélectionnez l'année :</label>
+                <select id="annee_quartiers" name="annee_quartiers">
+                    <option value=""></option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                    <option value="2012">2012</option>
+                    <option value="2011">2011</option>
+                    <option value="2010">2010</option>
+                    <option value="toutes">toutes</option>
+                </select>
+                <label for="quartier">Sélectionnez le quartier :</label>
+                <select id="quartier" name="quartier">
+                    <option value=""></option>
+                    <option value="athmar-park">athmar-park</option>
+                    <option value="auraria">auraria</option>
+                    <option value="baker">baker</option>
+                    <option value="barnum">barnum</option>
+                    <option value="barnum-west">barnum-west</option>
+                    <option value="bear-valley">bear-valley</option>
+                    <option value="belcaro">belcaro</option>
+                    <option value="berkeley">berkeley</option>
+                    <option value="capitol-hill">capitol-hill</option>
+                    <option value="cbd">cbd</option>
+                    <option value="central-park">central-park</option>
+                    <option value="chaffee-park">chaffee-park</option>
+                    <option value="cheesman-park">cheesman-park</option>
+                    <option value="cherry-creek">cherry-creek</option>
+                    <option value="city-park">city-park</option>
+                    <option value="city-park-west">city-park-west</option>
+                    <option value="civic-center">civic-center</option>
+                    <option value="clayton">clayton</option>
+                    <option value="cole">cole</option>
+                    <option value="college-view-south-platte">college-view-south-platte</option>
+                    <option value="congress-park">congress-park</option>
+                    <option value="cory-merrill">cory-merrill</option>
+                    <option value="country-club">country-club</option>
+                    <option value="dia">dia</option>
+                    <option value="east-colfax">east-colfax</option>
+                    <option value="elyria-swansea">elyria-swansea</option>
+                    <option value="five-points">five-points</option>
+                    <option value="fort-logan">fort-logan</option>
+                    <option value="gateway-green-valley-ranch">gateway-green-valley-ranch</option>
+                    <option value="globeville">globeville</option>
+                    <option value="goldsmith">goldsmith</option>
+                    <option value="hale">hale</option>
+                    <option value="hampden">hampden</option>
+                    <option value="hampden-south">hampden-south</option>
+                    <option value="harvey-park">harvey-park</option>
+                    <option value="harvey-park-south">harvey-park-south</option>
+                    <option value="highland">highland</option>
+                    <option value="hilltop">hilltop</option>
+                    <option value="indian-creek">indian-creek</option>
+                    <option value="jefferson-park">jefferson-park</option>
+                    <option value="kennedy">kennedy</option>
+                    <option value="lincoln-park">lincoln-park</option>
+                    <option value="lowry-field">lowry-field</option>
+                    <option value="mar-lee">mar-lee</option>
+                    <option value="marston">marston</option>
+                    <option value="montbello">montbello</option>
+                    <option value="montclair">montclair</option>
+                    <option value="north-capitol-hill">north-capitol-hill</option>
+                    <option value="north-park-hill">north-park-hill</option>
+                    <option value="northeast-park-hill">northeast-park-hill</option>
+                    <option value="overland">overland</option>
+                    <option value="platt-park">platt-park</option>
+                    <option value="regis">regis</option>
+                    <option value="rosedale">rosedale</option>
+                    <option value="ruby-hill">ruby-hill</option>
+                    <option value="skyland">skyland</option>
+                    <option value="sloan-lake">sloan-lake</option>
+                    <option value="south-park-hill">south-park-hill</option>
+                    <option value="southmoor-park">southmoor-park</option>
+                    <option value="speer">speer</option>
+                    <option value="sun-valley">sun-valley</option>
+                    <option value="sunnyside">sunnyside</option>
+                    <option value="union-station">union-station</option>
+                    <option value="university">university</option>
+                    <option value="university-hills">university-hills</option>
+                    <option value="university-park">university-park</option>
+                    <option value="valverde">valverde</option>
+                    <option value="villa-park">villa-park</option>
+                    <option value="virginia-village">virginia-village</option>
+                    <option value="washington-park">washington-park</option>
+                    <option value="washington-park-west">washington-park-west</option>
+                    <option value="washington-virginia-vale">washington-virginia-vale</option>
+                    <option value="wellshire">wellshire</option>
+                    <option value="west-colfax">west-colfax</option>
+                    <option value="west-highland">west-highland</option>
+                    <option value="westwood">westwood</option>
+                    <option value="whittier">whittier</option>
+                    <option value="windsor">windsor</option>
+                </select>
+                <button type="button" onclick="submitForm()">Valider</button>
+            </form>  
             <div id="connection-status">
                 <button id="connection-button">Connexion en cours...</button>
             </div>
         </div>
     </div>
     <div class="contenu">
-        <div class="un">
-            <div id="d"></div>
+        <div class="un loader">
+            <div id="leafletMap" style="width: 100%; height: 100%;"> <!-- -->
+            </div>
         </div>
-        <div class="deux"></div>
-        <div class="trois">
+        <div class="deux loader">
+            <div id="heatMap" style="width: 100%; height: 100%;"></div>
+        </div>
+        <div class="trois loader">
             <canvas id="donutChart"></canvas>
         </div>
-        <div class="quatre">
+        <div class="quatre loader">
             <canvas id="myChart" class="my_chart"></canvas>
         </div>
-        <div id="cinq" class="cinq">
-            <div id="resultatRequete" style="color: black;">1.0197</div>
-            <div id="nombres2" style="color: black;">74390</div>
-            <div id="nombres3" style="color: black;">72954</div>
+        <div id="cinq" class="cinq loader">
+            <div id="resultatRequete" style="color: black;">0.00000</div>
+            <div id="nombres2" style="color: black;">0</div>
+            <div id="nombres3" style="color: black;">0</div>
         </div>
     </div>
-    
-    <script src="main.js"></script>
+    <script src="quartiers.js"></script>
 </body>
 </html>
