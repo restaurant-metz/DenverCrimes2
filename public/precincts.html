@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Denver Crimes Visualization</title>
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
@@ -25,6 +24,7 @@
             </ul>
         </div>
         <div class="filtres">
+            <h3>Filtres : </h3>
             <form id="myForm">
                 <label for="annee_precincts">Sélectionnez l'année :</label>
                 <select id="annee_precincts">
@@ -96,16 +96,22 @@
         <div class="deux loader">
             <div id="heatMap" style="width: 100%; height: 100%;"></div>
         </div>
-        <div class="trois loader">
+        <div class="trois loader graphique">
             <canvas id="donutChart"></canvas>
         </div>
-        <div class="quatre loader">
+        <div class="quatre loader graphique">
             <canvas id="myChart" class="my_chart"></canvas>
         </div>
         <div id="cinq" class="cinq loader">
-            <div id="resultatRequete" style="color: black;">0.00000</div>
-            <div id="nombres2" style="color: black;">0</div>
-            <div id="nombres3" style="color: black;">0</div>
+            <div style="color: black;" class="graphique">
+                <h5 id="resultatRequete">0.0000</h5>
+            </div>
+            <div style="color: black;" class="graphique">
+                <h5 id="nombres2">0</h5>
+            </div>
+            <div style="color: black;" class="graphique">
+                <h5 id="nombres3">0</h5>
+            </div>
         </div>
     </div>
     <script src="precincts.js"></script>

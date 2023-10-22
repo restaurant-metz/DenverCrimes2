@@ -25,7 +25,8 @@
             </ul>
         </div>
         <div class="filtres">
-            <h3>Filtrer par :</h3>
+            <h3>Filtres : </h3>
+            <label for="annee">Sélectionnez l'année:</label>
             <select id="annee">
                 <option value=""></option>
                 <option value="2021">2021</option>
@@ -42,9 +43,7 @@
                 <option value="2010">2010</option>
                 <option value="toutes">toutes</option>
             </select>
-            <div id="connection-status">
-                <button id="connection-button">Connexion en cours...</button>
-            </div>
+            <p id="connection-status">connexion en cours ...</p>
         </div>
     </div>
     <div class="contenu">
@@ -55,16 +54,22 @@
         <div class="deux loader">
             <div id="heatMap" style="width: 100%; height: 100%;"></div>
         </div>
-        <div class="trois loader">
+        <div class="trois loader graphique">
             <canvas id="donutChart"></canvas>
         </div>
-        <div class="quatre loader">
+        <div class="quatre loader graphique">
             <canvas id="myChart" class="my_chart"></canvas>
         </div>
         <div id="cinq" class="cinq loader">
-            <div id="resultatRequete" style="color: black;">0.0000</div>
-            <div id="nombres2" style="color: black;">0</div>
-            <div id="nombres3" style="color: black;">0</div>
+            <div style="color: black;" class="graphique">
+                <h5 id="resultatRequete">0.0000</h5>
+            </div>
+            <div style="color: black;" class="graphique">
+                <h5 id="nombres2">0</h5>
+            </div>
+            <div style="color: black;" class="graphique">
+                <h5 id="nombres3">0</h5>
+            </div>
         </div>
     </div>
     <script src="main.js"></script>
