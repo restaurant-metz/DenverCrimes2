@@ -3,7 +3,7 @@ let myDonutChart;
 
 
 // Créer une carte Leaflet
-var mymap = L.map('leafletMap').setView([39.739377, -104.990253], 18);
+var mymap = L.map('leafletMap').setView([39.739377, -104.990253], 12);
 
 // Ajouter une couche de tuiles OpenStreetMap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -44,18 +44,18 @@ document.addEventListener('DOMContentLoaded', function() {
         datasets: [{
             label: 'Nombre de crimes par mois',
             data: [
-                6175,
-                5279,
-                5641,
-                5815,
-                6467,
-                6374,
-                6614,
-                6397,
-                6034,
-                6119,
-                5904,
-                6135
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
             ],
             backgroundColor: [ 
                 'rgba(255, 99, 71, 0.9)',
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'white-collar-crime'
             ],
             datasets: [{
-                data: [3276, 7484, 188, 12643, 5723, 2476, 10119, 88, 3328, 11023, 1282, 698, 13599, 1027],
+                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 backgroundColor: [
                     'rgba(255, 99, 71, 0.9)',
                     'rgba(65, 105, 225, 0.9)',

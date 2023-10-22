@@ -175,39 +175,39 @@ myDonutChart = new Chart(donutChartCtx, {
 function submitForm() {
 
     // Récupérez les valeurs sélectionnées par l'utilisateur
-    const annee = document.getElementById("annee_quartiers").value;
-    const quartier = document.getElementById("quartier").value;
+    const annee = document.getElementById("annee_precincts").value;
+    const precinct = document.getElementById("precinct").value;
 
     // Vérifiez si les deux sélections ont été faites
-    if (annee && quartier) {
+    if (annee && precinct) {
         //--------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------
         const query_month_count = `
-        SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
-        FROM crimes_${annee}
-        WHERE neighborhood_id = "${quartier}"
-        GROUP BY month(first_occurrence_date);
+            SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
+            FROM crimes_${annee}
+            WHERE precinct_id = ${precinct}
+            GROUP BY month(first_occurrence_date);
         `;
         const query_avg_victim_count = `
             SELECT SUM(victim_count)/COUNT(victim_count) AS average_victim_count
             FROM crimes_${annee}
-            WHERE neighborhood_id = "${quartier}";
+            WHERE precinct_id = ${precinct};
         `;
         const query_category_count = `
             SELECT offense_category_id, count(*) as nombre
             FROM crimes_${annee}
-            WHERE neighborhood_id = "${quartier}"
+            WHERE precinct_id = ${precinct}
             GROUP BY offense_category_id;
         `;
         const query_sum_victims = `
             SELECT SUM(victim_count) AS average_victim_count
             FROM crimes_${annee}
-            WHERE neighborhood_id = "${quartier}"
+            WHERE precinct_id = ${precinct}
         `;
         const query_count_incidents = `
             SELECT COUNT(incident_id) AS average_victim_count
             FROM crimes_${annee}
-            WHERE neighborhood_id = "${quartier}"
+            WHERE precinct_id = ${precinct}
         `;
         // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
@@ -243,7 +243,7 @@ function submitForm() {
             myChart.update(); // Mettez à jour le graphique
 
             // Affichez les données dans la console
-            //console.log('Données récupérées depuis le serveur :', data);
+            console.log('Données récupérées depuis le serveur :', data);
         });
 
         // ------------------------------------------------
@@ -285,6 +285,7 @@ function submitForm() {
             const labels = data.map(item => item.offense_category_id);
             const values = data.map(item => item.nombre);
 
+            /*
             // Vérifiez si le graphique donut existe déjà
             if (myDonutChart) {
                 myDonutChart.destroy(); // Détruire le graphique précédent si présent
@@ -346,57 +347,58 @@ function submitForm() {
                     }
                 } // Ajoute l'accolade manquante ici
             });
-            
-                // Affichez les données dans la console
-                //console.log('Données récupérées depuis le serveur :', data);
-            });
+            */
+            myDonutChart.data.labels = labels;
+            myDonutChart.data.datasets[0].data = values;
+            myDonutChart.update();
+        });
 
-            // ------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------
         
-            // Utilisez fetch pour récupérer les données avec la nouvelle requête
-            fetch('/donnees', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ query: query_sum_victims })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Affichez la réponse dans le div "resultatRequete"
-                const resultatRequete = document.getElementById('nombres2');
-                resultatRequete.textContent = `${data[0].average_victim_count}`;
-        
-                // Affichez les données dans la console
-                console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
-            });
+        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        fetch('/donnees', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query: query_sum_victims })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Affichez la réponse dans le div "resultatRequete"
+            const resultatRequete = document.getElementById('nombres2');
+            resultatRequete.textContent = `${data[0].average_victim_count}`;
+    
+            // Affichez les données dans la console
+            console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
+        });
 
 
-            // ------------------------------------------------------------------------
+        // ------------------------------------------------------------------------
 
-            // Utilisez fetch pour récupérer les données avec la nouvelle requête
-            fetch('/donnees', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ query: query_count_incidents })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Affichez la réponse dans le div "resultatRequete"
-                const resultatRequete = document.getElementById('nombres3');
-                resultatRequete.textContent = `${data[0].average_victim_count}`;
+        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        fetch('/donnees', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query: query_count_incidents })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Affichez la réponse dans le div "resultatRequete"
+            const resultatRequete = document.getElementById('nombres3');
+            resultatRequete.textContent = `${data[0].average_victim_count}`;
 
-                // Affichez les données dans la console
-                console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
-            });
+            // Affichez les données dans la console
+            console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
+        });
 
         //---------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------
@@ -416,11 +418,11 @@ function submitForm() {
 
         // -------------------------------------------------
         const yearQuartier = `
-                SELECT geo_lat, geo_lon
-                FROM crimes_${annee}
-                WHERE geo_lat IS NOT NULL
-                AND geo_lon IS NOT NULL
-                AND neighborhood_id = "${quartier}";
+            SELECT geo_lat, geo_lon
+            FROM crimes_${annee}
+            WHERE geo_lat IS NOT NULL
+            AND geo_lon IS NOT NULL
+            AND precinct_id = ${precinct};
         `; 
 
         fetch('/donnees', {
