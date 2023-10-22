@@ -469,7 +469,7 @@ document.getElementById('annee').addEventListener('change', function() {
 
 //------------------------------------------------------------------------------------------------------------
 const connectionStatusElement = document.getElementById('connection-status');
-const connectionButton = document.getElementById('connection-button');
+//const connectionButton = document.getElementById('connection-button');
 
 // Fonction pour mettre à jour l'état de connexion
 function updateConnectionStatus() {
@@ -482,8 +482,8 @@ function updateConnectionStatus() {
         connectionStatusElement.style.color = color;
 
         // Mettez à jour le texte du bouton avec l'état de la connexion
-        connectionButton.textContent = status;
-        connectionButton.style.color = color;
+        //connectionButton.textContent = status;
+        //connectionButton.style.color = color;
 
         // Si l'état de connexion indique une retentative, vous pouvez afficher un message ou effectuer des actions supplémentaires ici
         if (status === "Retentative de connexion") {
