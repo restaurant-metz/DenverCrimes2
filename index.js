@@ -57,7 +57,7 @@ app.post('/donnees', async (req, res) => {
     res.json(results);
   } catch (error) {
     console.error('Erreur lors de la récupération des données :', error);
-    res.status(500).send('Erreur serveur');
+    res.status(5000).send('Erreur serveur');
   }
 });
 
