@@ -1,6 +1,4 @@
-
-# Project Title
-
-A brief description of what this project does and who it's for
+# Denver Crimes Visualization
 
 ![Screenshot](./public/img/screenshot.png)
+![Screenshot](./public/img/quartiers.png)
