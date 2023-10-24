@@ -3,6 +3,7 @@ const mysql = require('mysql2');
 const app = express();
 const bodyParser = require('body-parser');
 const port = 3000;
+const dotenv = require('dotenv').config();
 
 let connectionStatus = "Connexion en cours...";
 let connectionColor = "green"; // Couleur initiale en vert
@@ -12,11 +13,16 @@ app.use(express.static('public'));
 
 // Configuration de la base de données
 const dbConfig = {
-  host: 'devbdd.iutmetz.univ-lorraine.fr',
+  host: process.env.DB_HOST,
   user: 'basbunar2u_appli',
-  password: '31912712',
+  password: process.env.DB_PASSWORD,
   database: 'basbunar2u_denverCrimes'
 };
+
+//host: process.env.DB_HOST,
+//user: process.env.DB_USER,
+//password: process.env.DB_PASSWORD,
+//database: process.env.DB_DATABASE,
 
 let db;
 
