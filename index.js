@@ -19,11 +19,6 @@ const dbConfig = {
   database: 'basbunar2u_denverCrimes'
 };
 
-//host: process.env.DB_HOST,
-//user: process.env.DB_USER,
-//password: process.env.DB_PASSWORD,
-//database: process.env.DB_DATABASE,
-
 let db;
 
 // Fonction pour mettre à jour le statut de connexion
