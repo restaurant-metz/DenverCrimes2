@@ -170,23 +170,11 @@ document.addEventListener('DOMContentLoaded', function() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false // Cela masquera les légendes
+                    display: false
                 }
             }
         }
     });
-
-    /*
-     // Afficher le loader avant le rendu du graphique
-    myChart.options.animation.beforeRender = function() {
-        $(".loader").show();
-    };
-    
-    // Cacher le loader après le rendu du graphique
-    myChart.options.animation.afterRender = function() {
-        $(".loader").hide();
-    };
-    */
 
 });
 
@@ -250,8 +238,6 @@ document.getElementById('annee').addEventListener('change', function() {
             myChart.data.datasets[0].data = values;
             myChart.update(); // Mettez à jour le graphique
 
-            // Affichez les données dans la console
-            //console.log('Données récupérées depuis le serveur :', data);
         });
 
         // ------------------------------------------------
@@ -266,12 +252,8 @@ document.getElementById('annee').addEventListener('change', function() {
         })
         .then(response => response.json())
         .then(data => {
-            // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('resultatRequete');
             resultatRequete.textContent = `${data[0].average_victim_count}`;
-
-            // Affichez les données dans la console
-            //console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
         })
         .catch(error => {
             console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
