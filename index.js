@@ -74,3 +74,7 @@ app.listen(port, () => {
 app.get('/connection-status', (req, res) => {
   res.json({ status: connectionStatus, color: connectionColor });
 });
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
