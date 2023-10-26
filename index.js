@@ -13,10 +13,10 @@ app.use(express.static('public'));
 
 // Configuration de la base de données
 const dbConfig = {
-  host: process.env.DB_HOST,
-  user: 'basbunar2u_appli',
-  password: process.env.DB_PASSWORD,
-  database: 'basbunar2u_denverCrimes'
+  host: "db4free.net",//process.env.DB_HOST,
+  user: "hasanbb",//'basbunar2u_appli',
+  password: "hASANIBASRI57µ",//process.env.DB_PASSWORD,
+  database: "datavizu"//'basbunar2u_denverCrimes'
 };
 
 let db;

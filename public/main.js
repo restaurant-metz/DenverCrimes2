@@ -185,25 +185,25 @@ document.getElementById('annee').addEventListener('change', function() {
     {
         const query_month_count = `
         SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
-        FROM crimes_${selectedYear}
+        FROM crime${selectedYear}
         GROUP BY month(first_occurrence_date);
         `;
         const query_avg_victim_count = `
             SELECT SUM(victim_count)/COUNT(victim_count) AS average_victim_count
-            FROM crimes_${selectedYear}
+            FROM crime${selectedYear}
         `;
         const query_category_count = `
             SELECT offense_category_id, count(*) as nombre
-            FROM crimes_${selectedYear}
+            FROM crime${selectedYear}
             GROUP BY offense_category_id;
         `;
         const query_sum_victims = `
             SELECT SUM(victim_count) AS average_victim_count
-            FROM crimes_${selectedYear}
+            FROM crime${selectedYear}
         `;
         const query_count_incidents = `
             SELECT COUNT(incident_id) AS average_victim_count
-            FROM crimes_${selectedYear}
+            FROM crime${selectedYear}
         `;
         // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
@@ -409,7 +409,7 @@ document.getElementById('annee').addEventListener('change', function() {
             first_occurrence_date, last_occurrence_date, 
             reported_date, incident_address, 
             geo_lon, geo_lat, victim_count
-            FROM crimes_${selectedYear}
+            FROM crime${selectedYear}
             WHERE geo_lat IS NOT NULL
         `; // AND geo_lon IS NOT NULL;
         fetch('/donnees', {
