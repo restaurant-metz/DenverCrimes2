@@ -131,10 +131,34 @@ button:hover {
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 1fr 1fr;
   grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
+  /*grid-auto-rows: minmax(100px, auto);*/
   background-color: #6969699c;
   box-shadow: rgba(0, 0, 0, 0.5) 7px 7px 7px 0px;
 }
+
+/* Media Query pour les écrans étroits (par exemple, les mobiles)
+@media screen and (max-width: 900px) {
+  .contenu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  body{
+    display: flex;
+    flex-direction: column;
+    background-size: contain;
+    max-width: 100%;
+  }
+  div{
+    height: 100%;
+    width: 100%;
+  }
+  .menu_gauche {
+    display: flex;
+    flex-direction: row;
+  }
+}
+*/
 
 .un {
   grid-column: 1/6;

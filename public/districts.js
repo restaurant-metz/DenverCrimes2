@@ -418,7 +418,10 @@ function submitForm() {
 
         // -------------------------------------------------
         const yearQuartier = `
-            SELECT geo_lat, geo_lon
+            SELECT offense_type_id, offense_category_id, 
+            first_occurrence_date, last_occurrence_date, 
+            reported_date, incident_address, 
+            geo_lon, geo_lat, victim_count
             FROM crimes_${annee}
             WHERE geo_lat IS NOT NULL
             AND geo_lon IS NOT NULL
@@ -437,18 +440,19 @@ function submitForm() {
             // Transform data into the expected format
             var heatData = data.map(coord => [coord.geo_lat, coord.geo_lon]);
             heat = L.heatLayer(heatData, { radius: 25 }).addTo(map);
-            // Ajoutez des marqueurs sur la carte pour chaque coordonnée récupérée
-            /*
-            data.forEach(coord => {
-                var marker = L.marker([coord.geo_lat, coord.geo_lon]);
-                markers.addLayer(marker); // Ajoutez le marqueur au groupe de marqueurs
-                //heat.addLatLng([coord.geo_lat, coord.geo_lon]);
-            });
-            */
+
             data.forEach(coord => {
                 if(coord.geo_lat && coord.geo_lon) {
                     var marker = L.marker([coord.geo_lat, coord.geo_lon]);
-                    markers.addLayer(marker); // Ajoutez le marqueur au groupe de marqueurs
+                    var popupContent = `<b>Adresse:</b> ${coord.incident_address}<br>`;
+                    popupContent += `<b>offense_type_id</b> ${coord.offense_type_id}<br>`;
+                    popupContent += `<b>offense_category_id</b> ${coord.offense_category_id}<br>`;
+                    popupContent += `<b>first_occurrence_date</b> ${coord.first_occurrence_date}<br>`;
+                    popupContent += `<b>last_occurrence_date</b> ${coord.last_occurrence_date}<br>`;
+                    popupContent += `<b>reported_date</b> ${coord.reported_date}<br>`;
+                    popupContent += `<b>victim_count</b> ${coord.victim_count}<br>`;
+                    marker.bindPopup(popupContent); // Associez la popup au marqueur
+                    markers.addLayer(marker);
                 }
             });
             mymap.addLayer(markers);
