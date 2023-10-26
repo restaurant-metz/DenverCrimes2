@@ -136,7 +136,7 @@ button:hover {
   box-shadow: rgba(0, 0, 0, 0.5) 7px 7px 7px 0px;
 }
 
-/* Media Query pour les écrans étroits (par exemple, les mobiles)
+/*Media Query pour les écrans étroits (par exemple, les mobiles)
 @media screen and (max-width: 900px) {
   .contenu {
     display: flex;
