@@ -444,13 +444,33 @@ function submitForm() {
             data.forEach(coord => {
                 if(coord.geo_lat && coord.geo_lon) {
                     var marker = L.marker([coord.geo_lat, coord.geo_lon]);
-                    var popupContent = `<b>Adresse:</b> ${coord.incident_address}<br>`;
-                    popupContent += `<b>offense_type_id</b> ${coord.offense_type_id}<br>`;
-                    popupContent += `<b>offense_category_id</b> ${coord.offense_category_id}<br>`;
-                    popupContent += `<b>first_occurrence_date</b> ${coord.first_occurrence_date}<br>`;
-                    popupContent += `<b>last_occurrence_date</b> ${coord.last_occurrence_date}<br>`;
-                    popupContent += `<b>reported_date</b> ${coord.reported_date}<br>`;
-                    popupContent += `<b>victim_count</b> ${coord.victim_count}<br>`;
+                    var popupContent = `<b>Adresse : </b> ${coord.incident_address}<br>`;
+                    popupContent += `<b>offense_type_id : </b> ${coord.offense_type_id}<br>`;
+                    popupContent += `<b>offense_category_id : </b> ${coord.offense_category_id}<br>`;
+
+                    //popupContent += `<b>first_occurrence_date : </b> ${coord.first_occurrence_date}<br>`;
+                    //popupContent += `<b>last_occurrence_date : </b> ${coord.last_occurrence_date}<br>`;
+                    //popupContent += `<b>reported_date : </b> ${coord.reported_date}<br>`;
+                    if (coord.first_occurrence_date) {
+                        const firstOccurrenceDate = new Date(coord.first_occurrence_date);
+                        const formattedFirstOccurrenceDate = firstOccurrenceDate.toLocaleString('en-US');
+                        popupContent += `<b>first_occurrence_date : </b> ${formattedFirstOccurrenceDate}<br>`;
+                    }
+
+                    if (coord.last_occurrence_date) {
+                        const lastOccurrenceDate = new Date(coord.last_occurrence_date);
+                        const formattedLastOccurrenceDate = lastOccurrenceDate.toLocaleString('en-US');
+                        popupContent += `<b>last_occurrence_date : </b> ${formattedLastOccurrenceDate}<br>`;
+                    }
+
+                    if (coord.reported_date) {
+                        const reportedDate = new Date(coord.reported_date);
+                        const formattedReportedDate = reportedDate.toLocaleString('en-US');
+                        popupContent += `<b>reported_date : </b> ${formattedReportedDate}<br>`;
+                    }
+
+
+                    popupContent += `<b>victim_count : </b> ${coord.victim_count}<br>`;
                     marker.bindPopup(popupContent); // Associez la popup au marqueur
                     markers.addLayer(marker);
                 }
