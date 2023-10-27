@@ -31,6 +31,7 @@
                 <label for="annee_quartiers">Sélectionnez l'année :</label>
                 <select id="annee_quartiers" name="annee_quartiers">
                     <option value=""></option>
+                    <option value="toutes">2010 à 2021</option>
                     <option value="2021">2021</option>
                     <option value="2020">2020</option>
                     <option value="2019">2019</option>
@@ -43,7 +44,6 @@
                     <option value="2012">2012</option>
                     <option value="2011">2011</option>
                     <option value="2010">2010</option>
-                    <option value="toutes">toutes</option>
                 </select>
                 <label for="quartier">Sélectionnez le quartier :</label>
                 <select id="quartier" name="quartier">
@@ -126,6 +126,24 @@
                     <option value="westwood">westwood</option>
                     <option value="whittier">whittier</option>
                     <option value="windsor">windsor</option>
+                </select>
+                <label for="category">Sélectionnez la catégorie : </label>
+                <select name="category" id="category">
+                    <option value="">toutes</option>
+                    <option value="public-disorder">public-disorder</option>
+                    <option value="drug-alcohol">drug-alcohol</option>
+                    <option value="sexual-assault">sexual-assault</option>
+                    <option value="other-crimes-against-persons">other-crimes-against-persons</option>
+                    <option value="all-other-crimes">all-other-crimes</option>
+                    <option value="murder">murder</option>
+                    <option value="robbery">robbery</option>
+                    <option value="aggravated-assault">aggravated-assault</option>
+                    <option value="arson">arson</option>
+                    <option value="burglary">burglary</option>
+                    <option value="larceny">larceny</option>
+                    <option value="theft-from-motor-vehicle">theft-from-motor-vehicle</option>
+                    <option value="auto-theft">auto-theft</option>
+                    <option value="white-collar-crime">white-collar-crime</option>
                 </select>
                 <button type="button" onclick="submitForm()">Valider</button>
             </form>  

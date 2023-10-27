@@ -177,38 +177,98 @@ function submitForm() {
     // Récupérez les valeurs sélectionnées par l'utilisateur
     const annee = document.getElementById("annee_districts").value;
     const district = document.getElementById("district").value;
+    const category = document.getElementById("category").value;
 
     // Vérifiez si les deux sélections ont été faites
     if (annee && district) {
         //--------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------
-        const query_month_count = `
+        let query_month_count = `
             SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
             FROM crimes_${annee}
             WHERE district_id = "${district}"
             GROUP BY month(first_occurrence_date);
         `;
-        const query_avg_victim_count = `
+        let query_avg_victim_count = `
             SELECT SUM(victim_count)/COUNT(victim_count) AS average_victim_count
             FROM crimes_${annee}
             WHERE district_id = "${district}";
         `;
-        const query_category_count = `
+        let query_category_count = `
             SELECT offense_category_id, count(*) as nombre
             FROM crimes_${annee}
             WHERE district_id = "${district}"
             GROUP BY offense_category_id;
         `;
-        const query_sum_victims = `
+        let query_sum_victims = `
             SELECT SUM(victim_count) AS average_victim_count
             FROM crimes_${annee}
             WHERE district_id = "${district}"
         `;
-        const query_count_incidents = `
+        let query_count_incidents = `
             SELECT COUNT(incident_id) AS average_victim_count
             FROM crimes_${annee}
             WHERE district_id = "${district}"
         `;
+        let yearQuartier = `
+            SELECT offense_type_id, offense_category_id, 
+            first_occurrence_date, last_occurrence_date, 
+            reported_date, incident_address, 
+            geo_lon, geo_lat, victim_count
+            FROM crimes_${annee}
+            WHERE geo_lat IS NOT NULL
+            AND geo_lon IS NOT NULL
+            AND district_id = "${district}";
+        `; 
+
+        if (category)
+        {
+            query_month_count = `
+                SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
+                FROM crimes_${annee}
+                WHERE district_id = "${district}"
+                AND offense_category_id = '${category}'
+                GROUP BY month(first_occurrence_date);
+            `;
+            query_avg_victim_count = `
+                SELECT SUM(victim_count)/COUNT(victim_count) AS average_victim_count
+                FROM crimes_${annee}
+                WHERE district_id = "${district}"
+                AND offense_category_id = '${category}';
+            `;
+            query_category_count = `
+                SELECT offense_category_id, count(*) as nombre
+                FROM crimes_${annee}
+                WHERE district_id = "${district}"
+                AND offense_category_id = '${category}'
+                GROUP BY offense_category_id;
+            `;
+            query_sum_victims = `
+                SELECT SUM(victim_count) AS average_victim_count
+                FROM crimes_${annee}
+                WHERE district_id = "${district}"
+                AND offense_category_id = '${category}';
+            `;
+            query_count_incidents = `
+                SELECT COUNT(incident_id) AS average_victim_count
+                FROM crimes_${annee}
+                WHERE district_id = "${district}"
+                AND offense_category_id = '${category}';
+            `;
+            yearQuartier = `
+                SELECT offense_type_id, offense_category_id, 
+                first_occurrence_date, last_occurrence_date, 
+                reported_date, incident_address, 
+                geo_lon, geo_lat, victim_count
+                FROM crimes_${annee}
+                WHERE geo_lat IS NOT NULL
+                AND geo_lon IS NOT NULL
+                AND district_id = "${district}"
+                AND offense_category_id = '${category}';
+            `; 
+        }
+
+
         // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
@@ -417,16 +477,6 @@ function submitForm() {
         }
 
         // -------------------------------------------------
-        const yearQuartier = `
-            SELECT offense_type_id, offense_category_id, 
-            first_occurrence_date, last_occurrence_date, 
-            reported_date, incident_address, 
-            geo_lon, geo_lat, victim_count
-            FROM crimes_${annee}
-            WHERE geo_lat IS NOT NULL
-            AND geo_lon IS NOT NULL
-            AND district_id = "${district}";
-        `; 
 
         fetch('/donnees', {
             method: 'POST',

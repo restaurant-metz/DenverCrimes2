@@ -177,38 +177,96 @@ function submitForm() {
     // Récupérez les valeurs sélectionnées par l'utilisateur
     const annee = document.getElementById("annee_precincts").value;
     const precinct = document.getElementById("precinct").value;
+    const category = document.getElementById("category").value;
+
+    let query_month_count = `
+        SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
+        FROM crimes_${annee}
+        WHERE precinct_id = ${precinct}
+        GROUP BY month(first_occurrence_date);
+    `;
+    let query_avg_victim_count = `
+        SELECT SUM(victim_count)/COUNT(victim_count) AS average_victim_count
+        FROM crimes_${annee}
+        WHERE precinct_id = ${precinct};
+    `;
+    let query_category_count = `
+        SELECT offense_category_id, count(*) as nombre
+        FROM crimes_${annee}
+        WHERE precinct_id = ${precinct}
+        GROUP BY offense_category_id;
+    `;
+    let query_sum_victims = `
+        SELECT SUM(victim_count) AS average_victim_count
+        FROM crimes_${annee}
+        WHERE precinct_id = ${precinct}
+    `;
+    let query_count_incidents = `
+        SELECT COUNT(incident_id) AS average_victim_count
+        FROM crimes_${annee}
+        WHERE precinct_id = ${precinct}
+    `;
+
+    let yearQuartier = `
+        SELECT offense_type_id, offense_category_id, 
+        first_occurrence_date, last_occurrence_date, 
+        reported_date, incident_address, 
+        geo_lon, geo_lat, victim_count
+        FROM crimes_${annee}
+        WHERE geo_lat IS NOT NULL
+        AND precinct_id = ${precinct};
+    `; // AND geo_lon IS NOT NULL
 
     // Vérifiez si les deux sélections ont été faites
     if (annee && precinct) {
+        if (category)
+        {
+            query_month_count = `
+                SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
+                FROM crimes_${annee}
+                WHERE precinct_id = ${precinct}
+                AND offense_category_id = '${category}'
+                GROUP BY month(first_occurrence_date);
+            `;
+            query_avg_victim_count = `
+                SELECT SUM(victim_count)/COUNT(victim_count) AS average_victim_count
+                FROM crimes_${annee}
+                WHERE precinct_id = ${precinct}
+                AND offense_category_id = '${category}';
+            `;
+            query_category_count = `
+                SELECT offense_category_id, count(*) as nombre
+                FROM crimes_${annee}
+                WHERE precinct_id = ${precinct}
+                AND offense_category_id = '${category}'
+                GROUP BY offense_category_id;
+            `;
+            query_sum_victims = `
+                SELECT SUM(victim_count) AS average_victim_count
+                FROM crimes_${annee}
+                WHERE precinct_id = ${precinct}
+                AND offense_category_id = '${category}';
+            `;
+            query_count_incidents = `
+                SELECT COUNT(incident_id) AS average_victim_count
+                FROM crimes_${annee}
+                WHERE precinct_id = ${precinct}
+                AND offense_category_id = '${category}';
+            `;
+
+            yearQuartier = `
+                SELECT offense_type_id, offense_category_id, 
+                first_occurrence_date, last_occurrence_date, 
+                reported_date, incident_address, 
+                geo_lon, geo_lat, victim_count
+                FROM crimes_${annee}
+                WHERE geo_lat IS NOT NULL
+                AND precinct_id = ${precinct}
+                AND offense_category_id = '${category}';
+            `; // AND geo_lon IS NOT NULL
+        }
         //--------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------
-        const query_month_count = `
-            SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
-            FROM crimes_${annee}
-            WHERE precinct_id = ${precinct}
-            GROUP BY month(first_occurrence_date);
-        `;
-        const query_avg_victim_count = `
-            SELECT SUM(victim_count)/COUNT(victim_count) AS average_victim_count
-            FROM crimes_${annee}
-            WHERE precinct_id = ${precinct};
-        `;
-        const query_category_count = `
-            SELECT offense_category_id, count(*) as nombre
-            FROM crimes_${annee}
-            WHERE precinct_id = ${precinct}
-            GROUP BY offense_category_id;
-        `;
-        const query_sum_victims = `
-            SELECT SUM(victim_count) AS average_victim_count
-            FROM crimes_${annee}
-            WHERE precinct_id = ${precinct}
-        `;
-        const query_count_incidents = `
-            SELECT COUNT(incident_id) AS average_victim_count
-            FROM crimes_${annee}
-            WHERE precinct_id = ${precinct}
-        `;
         // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
@@ -285,69 +343,6 @@ function submitForm() {
             const labels = data.map(item => item.offense_category_id);
             const values = data.map(item => item.nombre);
 
-            /*
-            // Vérifiez si le graphique donut existe déjà
-            if (myDonutChart) {
-                myDonutChart.destroy(); // Détruire le graphique précédent si présent
-            }
-
-            // Créez le graphique donut et initialisez le contexte
-            const donutChartCtx = document.getElementById('donutChart').getContext('2d');
-
-            const donutData = {
-                labels: labels,
-                datasets: [{
-                    data: values,
-                    backgroundColor: [
-                        'rgba(255, 99, 71, 0.9)',
-                        'rgba(65, 105, 225, 0.9)',
-                        'rgba(60, 179, 113, 0.9)',
-                        'rgba(255, 165, 0, 0.9)',
-                        'rgba(186, 85, 211, 0.9)',
-                        'rgba(255, 215, 0, 0.9)',
-                        'rgba(70, 130, 180, 0.9)',
-                        'rgba(0, 128, 0, 0.9)',
-                        'rgba(255, 192, 203, 0.9)',
-                        'rgba(128, 0, 128, 0.9)',
-                        'rgba(210, 105, 30, 0.9)',
-                        'rgba(0, 128, 128, 0.9)',
-                        'rgba(255, 206, 86, 0.9)',
-                        'rgba(75, 192, 192, 0.9)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 71, 1)',
-                        'rgba(65, 105, 225, 1)',
-                        'rgba(60, 179, 113, 1)',
-                        'rgba(255, 165, 0, 1)',
-                        'rgba(186, 85, 211, 1)',
-                        'rgba(255, 215, 0, 1)',
-                        'rgba(70, 130, 180, 1)',
-                        'rgba(0, 128, 0, 1)',
-                        'rgba(255, 192, 203, 1)',
-                        'rgba(128, 0, 128, 1)',
-                        'rgba(210, 105, 30, 1)',
-                        'rgba(0, 128, 128, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
-
-            myDonutChart = new Chart(donutChartCtx, {
-                type: 'doughnut',
-                data: donutData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false // Cela masquera les légendes
-                        }
-                    }
-                } // Ajoute l'accolade manquante ici
-            });
-            */
             myDonutChart.data.labels = labels;
             myDonutChart.data.datasets[0].data = values;
             myDonutChart.update();
@@ -416,16 +411,7 @@ function submitForm() {
             //markers = L.layerGroup(); // Créer un nouveau groupe de marqueurs
         }
 
-        // -------------------------------------------------
-        const yearQuartier = `
-            SELECT offense_type_id, offense_category_id, 
-            first_occurrence_date, last_occurrence_date, 
-            reported_date, incident_address, 
-            geo_lon, geo_lat, victim_count
-            FROM crimes_${annee}
-            WHERE geo_lat IS NOT NULL
-            AND precinct_id = ${precinct};
-        `; // AND geo_lon IS NOT NULL
+        // ------------------------------------------------
 
         fetch('/donnees', {
             method: 'POST',

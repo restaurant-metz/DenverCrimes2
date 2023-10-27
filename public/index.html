@@ -27,23 +27,44 @@
         </div>
         <div class="filtres">
             <h3>Filtres : </h3>
-            <label for="annee">Sélectionnez l'année:</label>
-            <select id="annee">
-                <option value=""></option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-                <option value="2018">2018</option>
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
-                <option value="2014">2014</option>
-                <option value="2013">2013</option>
-                <option value="2012">2012</option>
-                <option value="2011">2011</option>
-                <option value="2010">2010</option>
-                <option value="toutes">toutes</option>
-            </select>
+            <form action="myForm">
+                <label for="category">Sélectionnez la catégorie : </label>
+                    <select name="category" id="category">
+                        <option value="">toutes</option>
+                        <option value="public-disorder">public-disorder</option>
+                        <option value="drug-alcohol">drug-alcohol</option>
+                        <option value="sexual-assault">sexual-assault</option>
+                        <option value="other-crimes-against-persons">other-crimes-against-persons</option>
+                        <option value="all-other-crimes">all-other-crimes</option>
+                        <option value="murder">murder</option>
+                        <option value="robbery">robbery</option>
+                        <option value="aggravated-assault">aggravated-assault</option>
+                        <option value="arson">arson</option>
+                        <option value="burglary">burglary</option>
+                        <option value="larceny">larceny</option>
+                        <option value="theft-from-motor-vehicle">theft-from-motor-vehicle</option>
+                        <option value="auto-theft">auto-theft</option>
+                        <option value="white-collar-crime">white-collar-crime</option>
+                    </select>
+                <label for="annee">Sélectionnez l'année:</label>
+                    <select id="annee">
+                        <option value=""></option>
+                        <option value="toutes">2010 à 2021</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                    </select>
+                <button type="button" onclick="submitForm()">Valider</button>
+            </form>  
             <p id="connection-status" class="connection-button">connexion en cours ...</p>
         </div>
     </div>
