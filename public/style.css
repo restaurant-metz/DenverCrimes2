@@ -8,7 +8,7 @@
 body{
   height: 100vh;
   max-height: 100vh;
-  width: 100%;
+  width: 100vw;
   max-width: 100vw;
   background-image: url("img/denver.jpg");
   -webkit-backdrop-filter: blur(2px);
@@ -136,29 +136,56 @@ button:hover {
   box-shadow: rgba(0, 0, 0, 0.5) 7px 7px 7px 0px;
 }
 
-/*Media Query pour les écrans étroits (par exemple, les mobiles)
+/*Media Query pour les écrans étroits (par exemple, les mobiles) */
 @media screen and (max-width: 900px) {
-  .contenu {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
   body{
-    display: flex;
+    padding: 30px;
     flex-direction: column;
-    background-size: contain;
-    max-width: 100%;
+    height: 500vh;
+    width: 100vw;
+    max-width: 100vw;
+    max-height: 500vh;
+    background-image: none;
+    row-gap: 30px;
   }
-  div{
-    height: 100%;
-    width: 100%;
-  }
+
   .menu_gauche {
+    background-color: rgb(255, 154, 154);
+    border-radius: 50px;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 50vh;
+    width: 100%;
+    padding: 15px;
   }
+
+  .menu_gauche div {
+    height: 100%;
+    width: 50%;
+  }
+
+
+  .contenu {
+    background-color: rgb(112, 177, 126);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .contenu div {
+    height: 100%;
+  }
+
+  .leafletMap, .heatMap { 
+    display: flex;
+    width: auto;
+  }
+
 }
-*/
+
 
 .un {
   grid-column: 1/6;
@@ -277,4 +304,9 @@ ACCUEIL
   color: white;
   text-align: center;
   text-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+
+.leafletMap, .heatMap {
+  height: 100%; 
+  width: 100%;
 }
