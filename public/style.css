@@ -141,10 +141,10 @@ button:hover {
   body{
     padding: 30px;
     flex-direction: column;
-    height: 500vh;
+    height: auto;
     width: 100vw;
     max-width: 100vw;
-    max-height: 500vh;
+    max-height: 100%;
     background-image: none;
     row-gap: 30px;
   }
@@ -166,23 +166,27 @@ button:hover {
     width: 50%;
   }
 
-
+  
   .contenu {
     background-color: rgb(112, 177, 126);
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    max-width: 100%;
+    max-width: 100vw;
+    height: 100%;
+    display: inline-block;
   }
 
   .contenu div {
-    height: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .un {
+    height: 50vh;
   }
 
-  .leafletMap, .heatMap { 
-    display: flex;
-    width: auto;
+  .deux {
+    height: 50vh;
   }
+
 
 }
 
