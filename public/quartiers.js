@@ -40,18 +40,7 @@ const initialData = {
     datasets: [{
         label: 'Nombre de crimes par mois',
         data: [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12
+            1,1,1,1,1,1,1,1,1,1,1,1
         ],
         backgroundColor: [ 
             'rgba(255, 99, 71, 0.9)',
@@ -349,70 +338,11 @@ function submitForm() {
             const labels = data.map(item => item.offense_category_id);
             const values = data.map(item => item.nombre);
 
-            // Vérifiez si le graphique donut existe déjà
-            if (myDonutChart) {
-                myDonutChart.destroy(); // Détruire le graphique précédent si présent
-            }
-
-            // Créez le graphique donut et initialisez le contexte
-            const donutChartCtx = document.getElementById('donutChart').getContext('2d');
-
-            const donutData = {
-                labels: labels,
-                datasets: [{
-                    data: values,
-                    backgroundColor: [
-                        'rgba(255, 99, 71, 0.9)',
-                        'rgba(65, 105, 225, 0.9)',
-                        'rgba(60, 179, 113, 0.9)',
-                        'rgba(255, 165, 0, 0.9)',
-                        'rgba(186, 85, 211, 0.9)',
-                        'rgba(255, 215, 0, 0.9)',
-                        'rgba(70, 130, 180, 0.9)',
-                        'rgba(0, 128, 0, 0.9)',
-                        'rgba(255, 192, 203, 0.9)',
-                        'rgba(128, 0, 128, 0.9)',
-                        'rgba(210, 105, 30, 0.9)',
-                        'rgba(0, 128, 128, 0.9)',
-                        'rgba(255, 206, 86, 0.9)',
-                        'rgba(75, 192, 192, 0.9)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 71, 1)',
-                        'rgba(65, 105, 225, 1)',
-                        'rgba(60, 179, 113, 1)',
-                        'rgba(255, 165, 0, 1)',
-                        'rgba(186, 85, 211, 1)',
-                        'rgba(255, 215, 0, 1)',
-                        'rgba(70, 130, 180, 1)',
-                        'rgba(0, 128, 0, 1)',
-                        'rgba(255, 192, 203, 1)',
-                        'rgba(128, 0, 128, 1)',
-                        'rgba(210, 105, 30, 1)',
-                        'rgba(0, 128, 128, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
-
-            myDonutChart = new Chart(donutChartCtx, {
-                type: 'doughnut',
-                data: donutData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false // Cela masquera les légendes
-                        }
-                    }
-                } // Ajoute l'accolade manquante ici
-            });
-            
-                // Affichez les données dans la console
-                //console.log('Données récupérées depuis le serveur :', data);
+            myDonutChart.data.labels = labels;
+            myDonutChart.data.datasets[0].data = values;
+            myDonutChart.update();
+            // Affichez les données dans la console
+            //console.log('Données récupérées depuis le serveur :', data);
             });
 
             // ------------------------------------------------------------------------------------------------------------------

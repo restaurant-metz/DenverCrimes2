@@ -1,27 +1,15 @@
 let myChart;
-let myDonutChart; //
-
-// Créer une carte Leaflet
-var mymap = L.map('leafletMap').setView([39.704130, -105.011018], 9);
-
-// Ajouter une couche de tuiles OpenStreetMap
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-    maxZoom: 19
-}).addTo(mymap);
-
-var markers = L.markerClusterGroup();
-
-var map = L.map('heatMap').setView([39.704130, -105.011018], 9);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-}).addTo(map);
-
+let myDonutChart;
 var heat;
-
+var mymap = L.map('leafletMap').setView([39.704130, -105.011018], 9);
+var markers = L.markerClusterGroup();
+var map = L.map('heatMap').setView([39.704130, -105.011018], 9);
 const ctx = document.getElementById('myChart').getContext('2d');
 const donutChartCtx = document.getElementById('donutChart').getContext('2d');
+// Ajouter une couche de tuiles OpenStreetMap
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19}).addTo(mymap);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19}).addTo(map);
+
 const initialData = {
     labels: [
         'Janvier', 
@@ -39,47 +27,20 @@ const initialData = {
     ],
     datasets: [{
         label: 'Nombre de crimes par mois',
-        data: [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12
-        ],
+        data: [1,1,1,1,1,1,1,1,1,1,1,1],
         backgroundColor: [ 
-            'rgba(255, 99, 71, 0.9)',
-            'rgba(65, 105, 225, 0.9)',
-            'rgba(60, 179, 113, 0.9)',
-            'rgba(255, 165, 0, 0.9)',
-            'rgba(186, 85, 211, 0.9)',
-            'rgba(255, 215, 0, 0.9)',
-            'rgba(70, 130, 180, 0.9)',
-            'rgba(0, 128, 0, 0.9)',
-            'rgba(255, 192, 203, 0.9)',
-            'rgba(128, 0, 128, 0.9)',
-            'rgba(210, 105, 30, 0.9)',
-            'rgba(0, 128, 128, 0.9)'
+            'rgba(255, 99, 71, 0.9)','rgba(65, 105, 225, 0.9)','rgba(60, 179, 113, 0.9)',
+            'rgba(255, 165, 0, 0.9)','rgba(186, 85, 211, 0.9)','rgba(255, 215, 0, 0.9)',
+            'rgba(70, 130, 180, 0.9)','rgba(0, 128, 0, 0.9)','rgba(255, 192, 203, 0.9)',
+            'rgba(128, 0, 128, 0.9)','rgba(210, 105, 30, 0.9)','rgba(0, 128, 128, 0.9)'
         ],
         borderColor: [
-            'rgba(255, 99, 71, 1)',
-            'rgba(65, 105, 225, 1)',
-            'rgba(60, 179, 113, 1)',
-            'rgba(255, 165, 0, 1)',
-            'rgba(186, 85, 211, 1)',
-            'rgba(255, 215, 0, 1)',
-            'rgba(70, 130, 180, 1)',
-            'rgba(0, 128, 0, 1)',
-            'rgba(255, 192, 203, 1)',
-            'rgba(128, 0, 128, 1)',
-            'rgba(210, 105, 30, 1)',
-            'rgba(0, 128, 128, 1)'
+            'rgba(255, 99, 71, 1)','rgba(65, 105, 225, 1)',
+            'rgba(60, 179, 113, 1)','rgba(255, 165, 0, 1)',
+            'rgba(186, 85, 211, 1)','rgba(255, 215, 0, 1)',
+            'rgba(70, 130, 180, 1)','rgba(0, 128, 0, 1)',
+            'rgba(255, 192, 203, 1)','rgba(128, 0, 128, 1)',
+            'rgba(210, 105, 30, 1)','rgba(0, 128, 128, 1)'
         ],
         borderWidth: 1
     }]
@@ -127,20 +88,13 @@ myDonutChart = new Chart(donutChartCtx, {
         datasets: [{
             data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             backgroundColor: [
-                'rgba(255, 99, 71, 0.9)',
-                'rgba(65, 105, 225, 0.9)',
-                'rgba(60, 179, 113, 0.9)',
-                'rgba(255, 165, 0, 0.9)',
-                'rgba(186, 85, 211, 0.9)',
-                'rgba(255, 215, 0, 0.9)',
-                'rgba(70, 130, 180, 0.9)',
-                'rgba(0, 128, 0, 0.9)',
-                'rgba(255, 192, 203, 0.9)',
-                'rgba(128, 0, 128, 0.9)',
-                'rgba(210, 105, 30, 0.9)',
-                'rgba(0, 128, 128, 0.9)',
-                'rgba(255, 206, 86, 0.9)',
-                'rgba(75, 192, 192, 0.9)'
+                'rgba(255, 99, 71, 0.9)','rgba(65, 105, 225, 0.9)',
+                'rgba(60, 179, 113, 0.9)','rgba(255, 165, 0, 0.9)',
+                'rgba(186, 85, 211, 0.9)','rgba(255, 215, 0, 0.9)',
+                'rgba(70, 130, 180, 0.9)','rgba(0, 128, 0, 0.9)',
+                'rgba(255, 192, 203, 0.9)','rgba(128, 0, 128, 0.9)',
+                'rgba(210, 105, 30, 0.9)','rgba(0, 128, 128, 0.9)',
+                'rgba(255, 206, 86, 0.9)','rgba(75, 192, 192, 0.9)'
             ],
             borderColor: [
                 'rgba(255, 99, 71, 1)',
@@ -178,12 +132,11 @@ function submitForm() {
     const annee = document.getElementById("annee_districts").value;
     const district = document.getElementById("district").value;
     const category = document.getElementById("category").value;
+
     var monTitre = document.getElementById("monTitre");
 
     // Vérifiez si les deux sélections ont été faites
     if (annee && district) {
-        //--------------------------------------------------------------------------------
-        //-------------------------------------------------------------------------------
         let query_month_count = `
             SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
             FROM crimes_${annee}
@@ -271,8 +224,7 @@ function submitForm() {
             `; 
         }
 
-
-        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        // récupérer les données avec la requête
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -300,18 +252,18 @@ function submitForm() {
             const labels = data.map(item => moisMap[item.mois]);
             const values = data.map(item => item.nombre_totale);
 
-            // Mettez à jour les données du graphique existant
+            // Mettre à jour les données du graphique existant
             myChart.data.labels = labels;
             myChart.data.datasets[0].data = values;
-            myChart.update(); // Mettez à jour le graphique
+            myChart.update(); // Mettre à jour le graphique
 
             // Affichez les données dans la console
-            console.log('Données récupérées depuis le serveur :', data);
+            //console.log('Données récupérées depuis le serveur :', data);
         });
 
         // ------------------------------------------------
 
-        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        // récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -323,8 +275,9 @@ function submitForm() {
         .then(data => {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('resultatRequete');
-            resultatRequete.textContent = `${data[0].average_victim_count}`;
-
+            const average = data[0].average_victim_count;
+            const roundedAverage = parseFloat(average).toFixed(2);
+            resultatRequete.textContent = roundedAverage;
             // Affichez les données dans la console
             //console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
         })
@@ -334,7 +287,7 @@ function submitForm() {
 
         // ----------------------------------------------------------------------------------
 
-        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        // récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -348,69 +301,6 @@ function submitForm() {
             const labels = data.map(item => item.offense_category_id);
             const values = data.map(item => item.nombre);
 
-            /*
-            // Vérifiez si le graphique donut existe déjà
-            if (myDonutChart) {
-                myDonutChart.destroy(); // Détruire le graphique précédent si présent
-            }
-
-            // Créez le graphique donut et initialisez le contexte
-            const donutChartCtx = document.getElementById('donutChart').getContext('2d');
-
-            const donutData = {
-                labels: labels,
-                datasets: [{
-                    data: values,
-                    backgroundColor: [
-                        'rgba(255, 99, 71, 0.9)',
-                        'rgba(65, 105, 225, 0.9)',
-                        'rgba(60, 179, 113, 0.9)',
-                        'rgba(255, 165, 0, 0.9)',
-                        'rgba(186, 85, 211, 0.9)',
-                        'rgba(255, 215, 0, 0.9)',
-                        'rgba(70, 130, 180, 0.9)',
-                        'rgba(0, 128, 0, 0.9)',
-                        'rgba(255, 192, 203, 0.9)',
-                        'rgba(128, 0, 128, 0.9)',
-                        'rgba(210, 105, 30, 0.9)',
-                        'rgba(0, 128, 128, 0.9)',
-                        'rgba(255, 206, 86, 0.9)',
-                        'rgba(75, 192, 192, 0.9)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 71, 1)',
-                        'rgba(65, 105, 225, 1)',
-                        'rgba(60, 179, 113, 1)',
-                        'rgba(255, 165, 0, 1)',
-                        'rgba(186, 85, 211, 1)',
-                        'rgba(255, 215, 0, 1)',
-                        'rgba(70, 130, 180, 1)',
-                        'rgba(0, 128, 0, 1)',
-                        'rgba(255, 192, 203, 1)',
-                        'rgba(128, 0, 128, 1)',
-                        'rgba(210, 105, 30, 1)',
-                        'rgba(0, 128, 128, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
-
-            myDonutChart = new Chart(donutChartCtx, {
-                type: 'doughnut',
-                data: donutData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false // Cela masquera les légendes
-                        }
-                    }
-                } // Ajoute l'accolade manquante ici
-            });
-            */
             myDonutChart.data.labels = labels;
             myDonutChart.data.datasets[0].data = values;
             myDonutChart.update();
@@ -430,7 +320,13 @@ function submitForm() {
         .then(data => {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('nombres2');
-            resultatRequete.textContent = `${data[0].average_victim_count}`;
+            const average = data[0].average_victim_count;
+
+            // Utilisez l'option 'fr-FR' pour la France, vous pouvez ajuster la locale selon vos besoins.
+            const formattedAverage = parseFloat(average).toLocaleString('fr-FR');
+
+            resultatRequete.textContent = formattedAverage;
+            //resultatRequete.textContent = `${data[0].average_victim_count}`;
     
             // Affichez les données dans la console
             console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
@@ -454,7 +350,13 @@ function submitForm() {
         .then(data => {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('nombres3');
-            resultatRequete.textContent = `${data[0].average_victim_count}`;
+            const average = data[0].average_victim_count;
+
+            // Utilisez l'option 'fr-FR' pour la France, vous pouvez ajuster la locale selon vos besoins.
+            const formattedAverage = parseFloat(average).toLocaleString('fr-FR');
+
+            resultatRequete.textContent = formattedAverage;
+            //resultatRequete.textContent = `${data[0].average_victim_count}`;
 
             // Affichez les données dans la console
             console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);

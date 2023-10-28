@@ -1,23 +1,12 @@
 let myChart;
 let myDonutChart;
-
 // Créer une carte Leaflet
 var mymap = L.map('leafletMap').setView([39.704130, -105.011018], 9);
-
 // Ajouter une couche de tuiles OpenStreetMap
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-    maxZoom: 19
-}).addTo(mymap);
-
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19}).addTo(mymap);
 var markers = L.markerClusterGroup();
-
 var map = L.map('heatMap').setView([39.704130, -105.011018], 9);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-}).addTo(map);
-
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,}).addTo(map);
 var heat;
 
 const ctx = document.getElementById('myChart').getContext('2d');
@@ -40,18 +29,7 @@ const initialData = {
     datasets: [{
         label: 'Nombre de crimes par mois',
         data: [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12
+            1,1,1,1,1,1,1,1,1,1,1,1
         ],
         backgroundColor: [ 
             'rgba(255, 99, 71, 0.9)',
@@ -268,8 +246,7 @@ function submitForm() {
                 AND offense_category_id = '${category}';
             `; // AND geo_lon IS NOT NULL
         }
-        //--------------------------------------------------------------------------------
-        //-------------------------------------------------------------------------------
+
         // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
@@ -307,8 +284,6 @@ function submitForm() {
             console.log('Données récupérées depuis le serveur :', data);
         });
 
-        // ------------------------------------------------
-
         // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
@@ -330,8 +305,6 @@ function submitForm() {
             console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
         });
 
-        // ----------------------------------------------------------------------------------
-
         // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
@@ -351,8 +324,6 @@ function submitForm() {
             myDonutChart.update();
         });
 
-        // ------------------------------------------------------------------------------------------------------------------
-        
         // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
@@ -373,9 +344,6 @@ function submitForm() {
         .catch(error => {
             console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
         });
-
-
-        // ------------------------------------------------------------------------
 
         // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
@@ -398,10 +366,6 @@ function submitForm() {
             console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
         });
 
-        //---------------------------------------------------------------------------------------
-        //---------------------------------------------------------------------------------------
-
-        //-----------------------------------------------------------------------------------------
         // Supprimer la couche de chaleur existante
         if (heat) {
             map.removeLayer(heat);
@@ -413,8 +377,6 @@ function submitForm() {
             markers = L.markerClusterGroup();
             //markers = L.layerGroup(); // Créer un nouveau groupe de marqueurs
         }
-
-        // ------------------------------------------------
 
         fetch('/donnees', {
             method: 'POST',
@@ -436,27 +398,21 @@ function submitForm() {
                     popupContent += `<b>offense_type_id : </b> ${coord.offense_type_id}<br>`;
                     popupContent += `<b>offense_category_id : </b> ${coord.offense_category_id}<br>`;
 
-                    //popupContent += `<b>first_occurrence_date : </b> ${coord.first_occurrence_date}<br>`;
-                    //popupContent += `<b>last_occurrence_date : </b> ${coord.last_occurrence_date}<br>`;
-                    //popupContent += `<b>reported_date : </b> ${coord.reported_date}<br>`;
                     if (coord.first_occurrence_date) {
                         const firstOccurrenceDate = new Date(coord.first_occurrence_date);
                         const formattedFirstOccurrenceDate = firstOccurrenceDate.toLocaleString('en-US');
                         popupContent += `<b>first_occurrence_date : </b> ${formattedFirstOccurrenceDate}<br>`;
                     }
-
                     if (coord.last_occurrence_date) {
                         const lastOccurrenceDate = new Date(coord.last_occurrence_date);
                         const formattedLastOccurrenceDate = lastOccurrenceDate.toLocaleString('en-US');
                         popupContent += `<b>last_occurrence_date : </b> ${formattedLastOccurrenceDate}<br>`;
                     }
-
                     if (coord.reported_date) {
                         const reportedDate = new Date(coord.reported_date);
                         const formattedReportedDate = reportedDate.toLocaleString('en-US');
                         popupContent += `<b>reported_date : </b> ${formattedReportedDate}<br>`;
                     }
-
                     popupContent += `<b>victim_count : </b> ${coord.victim_count}<br>`;
                     marker.bindPopup(popupContent); // Associez la popup au marqueur
                     markers.addLayer(marker);
