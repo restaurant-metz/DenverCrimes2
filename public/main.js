@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'doughnut',
         data: {
             labels: [
+                /*
                 'aggravated-assault',
                 'all-other-crimes',
                 'arson',
@@ -127,9 +128,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 'sexual-assault',
                 'theft-from-motor-vehicle',
                 'white-collar-crime'
+                */
             ],
             datasets: [{
-                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                data: [
+                   // 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+                ],
                 backgroundColor: [
                     'rgba(255, 99, 71, 0.9)',
                     'rgba(65, 105, 225, 0.9)',
@@ -167,11 +171,17 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         options: {
             responsive: true,
+            /*
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false
+                    display: false,
                 }
+            },
+            */
+            legend: {
+                display: true,
+                position: 'bottom' // Vous pouvez ajuster la position selon vos préférences
             }
         }
     });
@@ -183,6 +193,7 @@ function submitForm() {
 
     const selectedYear = document.getElementById("annee").value;
     const category = document.getElementById("category").value;
+    var monTitre = document.getElementById("monTitre");
 
     if(selectedYear)
     {
@@ -217,8 +228,12 @@ function submitForm() {
             WHERE geo_lat IS NOT NULL
         `;
 
+        monTitre.textContent = "Répartition des crimes par catégorie";
+        
         if (category)
         {
+            monTitre.textContent = "Répartition des crimes par type";
+
             query_month_count = `
                 SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
                 FROM crimes_${selectedYear}
@@ -231,10 +246,10 @@ function submitForm() {
                 WHERE offense_category_id = '${category}';
             `;
             query_category_count = `
-                SELECT offense_category_id, count(*) as nombre
+                SELECT offense_type_id as offense_category_id, count(*) as nombre
                 FROM crimes_${selectedYear}
                 WHERE offense_category_id = '${category}'
-                GROUP BY offense_category_id;
+                GROUP BY offense_type_id;
             `;
             query_sum_victims = `
                 SELECT SUM(victim_count) AS average_victim_count
@@ -392,54 +407,54 @@ function submitForm() {
             
                 // Affichez les données dans la console
                 //console.log('Données récupérées depuis le serveur :', data);
-            });
+        });
 
-            // ------------------------------------------------------------------------------------------------------------------
-        
-            // Utilisez fetch pour récupérer les données avec la nouvelle requête
-            fetch('/donnees', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ query: query_sum_victims })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Affichez la réponse dans le div "resultatRequete"
-                const resultatRequete = document.getElementById('nombres2');
-                resultatRequete.textContent = `${data[0].average_victim_count}`;
-        
-                // Affichez les données dans la console
-                console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
-            });
+        // ------------------------------------------------------------------------------------------------------------------
+    
+        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        fetch('/donnees', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query: query_sum_victims })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Affichez la réponse dans le div "resultatRequete"
+            const resultatRequete = document.getElementById('nombres2');
+            resultatRequete.textContent = `${data[0].average_victim_count}`;
+    
+            // Affichez les données dans la console
+            console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
+        });
 
 
-            // ------------------------------------------------------------------------
+        // ------------------------------------------------------------------------
 
-            // Utilisez fetch pour récupérer les données avec la nouvelle requête
-            fetch('/donnees', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ query: query_count_incidents })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Affichez la réponse dans le div "resultatRequete"
-                const resultatRequete = document.getElementById('nombres3');
-                resultatRequete.textContent = `${data[0].average_victim_count}`;
+        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        fetch('/donnees', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query: query_count_incidents })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Affichez la réponse dans le div "resultatRequete"
+            const resultatRequete = document.getElementById('nombres3');
+            resultatRequete.textContent = `${data[0].average_victim_count}`;
 
-                // Affichez les données dans la console
-                console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
-            });
+            // Affichez les données dans la console
+            console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
+        });
 
         //--------------------------------------------------------------------------------------------
         // ----------------------------------------------------------------------------------------

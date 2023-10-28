@@ -178,6 +178,7 @@ function submitForm() {
     const annee = document.getElementById("annee_quartiers").value;
     const quartier = document.getElementById("quartier").value;
     const category = document.getElementById("category").value;
+    var monTitre = document.getElementById("monTitre");
 
     // Vérifiez si les deux sélections ont été faites
     if (annee && quartier) {
@@ -221,8 +222,12 @@ function submitForm() {
                 AND neighborhood_id = "${quartier}";
         `;  // AND geo_lon IS NOT NULL
 
+        monTitre.textContent = "Répartition des crimes par catégorie";
+
         if (category)
         {
+            monTitre.textContent = "Répartition des crimes par type";
+
             query_month_count = `
                 SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
                 FROM crimes_${annee}
@@ -237,11 +242,11 @@ function submitForm() {
                 AND offense_category_id = '${category}';
             `;
             query_category_count = `
-                SELECT offense_category_id, count(*) as nombre
+                SELECT offense_type_id as offense_category_id, count(*) as nombre
                 FROM crimes_${annee}
-                WHERE neighborhood_id = "${quartier}"
-                AND offense_category_id = '${category}'
-                GROUP BY offense_category_id;
+                WHERE offense_category_id = '${category}'
+                AND neighborhood_id = "${quartier}"
+                GROUP BY offense_type_id;
             `;
             query_sum_victims = `
                 SELECT SUM(victim_count) AS average_victim_count
