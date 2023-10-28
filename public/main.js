@@ -113,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'doughnut',
         data: {
             labels: [
-                /*
                 'aggravated-assault',
                 'all-other-crimes',
                 'arson',
@@ -128,11 +127,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 'sexual-assault',
                 'theft-from-motor-vehicle',
                 'white-collar-crime'
-                */
             ],
             datasets: [{
                 data: [
-                   // 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
                 ],
                 backgroundColor: [
                     'rgba(255, 99, 71, 0.9)',
@@ -171,14 +169,12 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         options: {
             responsive: true,
-            /*
             maintainAspectRatio: false,
             plugins: {
                 legend: {
                     display: false,
                 }
             },
-            */
             legend: {
                 display: true,
                 position: 'bottom' // Vous pouvez ajuster la position selon vos préférences
