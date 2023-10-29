@@ -6,7 +6,6 @@ var mymap = L.map('leafletMap').setView([39.704130, -105.011018], 9);
 
 // Ajouter une couche de tuiles OpenStreetMap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
     maxZoom: 19
 }).addTo(mymap);
 
@@ -313,7 +312,10 @@ function submitForm() {
         .then(data => {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('resultatRequete');
-            resultatRequete.textContent = `${data[0].average_victim_count}`;
+            const average = data[0].average_victim_count;
+            const roundedAverage = parseFloat(average).toFixed(2);
+            resultatRequete.textContent = roundedAverage;
+            //resultatRequete.textContent = `${data[0].average_victim_count}`;
 
             // Affichez les données dans la console
             //console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
@@ -359,7 +361,11 @@ function submitForm() {
             .then(data => {
                 // Affichez la réponse dans le div "resultatRequete"
                 const resultatRequete = document.getElementById('nombres2');
-                resultatRequete.textContent = `${data[0].average_victim_count}`;
+                const average = data[0].average_victim_count;
+                // Utilisez l'option 'fr-FR' pour la France, vous pouvez ajuster la locale selon vos besoins.
+                const formattedAverage = parseFloat(average).toLocaleString('fr-FR');
+                resultatRequete.textContent = formattedAverage;
+                //resultatRequete.textContent = `${data[0].average_victim_count}`;
         
                 // Affichez les données dans la console
                 console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
@@ -367,9 +373,6 @@ function submitForm() {
             .catch(error => {
                 console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
             });
-
-
-            // ------------------------------------------------------------------------
 
             // Utilisez fetch pour récupérer les données avec la nouvelle requête
             fetch('/donnees', {
@@ -383,7 +386,11 @@ function submitForm() {
             .then(data => {
                 // Affichez la réponse dans le div "resultatRequete"
                 const resultatRequete = document.getElementById('nombres3');
-                resultatRequete.textContent = `${data[0].average_victim_count}`;
+                const average = data[0].average_victim_count;
+                // Utilisez l'option 'fr-FR' pour la France, vous pouvez ajuster la locale selon vos besoins.
+                const formattedAverage = parseFloat(average).toLocaleString('fr-FR');
+                resultatRequete.textContent = formattedAverage;
+                //resultatRequete.textContent = `${data[0].average_victim_count}`;
 
                 // Affichez les données dans la console
                 console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);

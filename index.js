@@ -7,19 +7,18 @@ const dotenv = require('dotenv').config();
 
 let connectionStatus = "Connexion en cours...";
 let connectionColor = "green"; // Couleur initiale en vert
+let db;
 
 // Servir les fichiers statiques depuis le répertoire 'public'
 app.use(express.static('public'));
 
 // Configuration de la base de données
 const dbConfig = {
-  host: process.env.DB_HOST,
-  user: 'basbunar2u_appli',
+  host: "localhost",//process.env.DB_HOST,
+  user: "root",//'basbunar2u_appli',
   password: process.env.DB_PASSWORD,
-  database: 'basbunar2u_denverCrimes'
+  database: "denverCrimes"//'basbunar2u_denverCrimes'
 };
-
-let db;
 
 // Fonction pour mettre à jour le statut de connexion
 function updateConnectionStatus(status, color) {
@@ -36,7 +35,7 @@ function tryDatabaseConnection() {
       updateConnectionStatus('Erreur de connexion à la base de données : ' + err.message, 'red');
       console.error(connectionStatus);
 
-      // Réessayer la connexion après un délai (par exemple, 5 secondes)
+      // Réessayer la connexion après 5 secondes
       setTimeout(tryDatabaseConnection, 5000);
     } else {
       updateConnectionStatus('Connecté à la base de données', 'green');

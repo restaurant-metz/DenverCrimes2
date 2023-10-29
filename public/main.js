@@ -6,7 +6,6 @@ var mymap = L.map('leafletMap').setView([39.739377, -104.990253], 12);
 
 // Ajouter une couche de tuiles OpenStreetMap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
     maxZoom: 19
 }).addTo(mymap);
 
@@ -353,10 +352,8 @@ function submitForm() {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('nombres2');
             const average = data[0].average_victim_count;
-
             // Utilisez l'option 'fr-FR' pour la France, vous pouvez ajuster la locale selon vos besoins.
             const formattedAverage = parseFloat(average).toLocaleString('fr-FR');
-
             resultatRequete.textContent = formattedAverage;
             //resultatRequete.textContent = `${data[0].average_victim_count}`;
     
@@ -383,10 +380,8 @@ function submitForm() {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('nombres3');
             const average = data[0].average_victim_count;
-
             // Utilisez l'option 'fr-FR' pour la France, vous pouvez ajuster la locale selon vos besoins.
             const formattedAverage = parseFloat(average).toLocaleString('fr-FR');
-
             resultatRequete.textContent = formattedAverage;
             //resultatRequete.textContent = `${data[0].average_victim_count}`;
 

@@ -296,7 +296,10 @@ function submitForm() {
         .then(data => {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('resultatRequete');
-            resultatRequete.textContent = `${data[0].average_victim_count}`;
+            const average = data[0].average_victim_count;
+            const roundedAverage = parseFloat(average).toFixed(2);
+            resultatRequete.textContent = roundedAverage;
+            //resultatRequete.textContent = `${data[0].average_victim_count}`;
 
             // Affichez les données dans la console
             //console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
@@ -336,7 +339,11 @@ function submitForm() {
         .then(data => {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('nombres2');
-            resultatRequete.textContent = `${data[0].average_victim_count}`;
+            const average = data[0].average_victim_count;
+            // Utilisez l'option 'fr-FR' pour la France, vous pouvez ajuster la locale selon vos besoins.
+            const formattedAverage = parseFloat(average).toLocaleString('fr-FR');
+            resultatRequete.textContent = formattedAverage;
+            //resultatRequete.textContent = `${data[0].average_victim_count}`;
     
             // Affichez les données dans la console
             console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
@@ -357,7 +364,11 @@ function submitForm() {
         .then(data => {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('nombres3');
-            resultatRequete.textContent = `${data[0].average_victim_count}`;
+            const average = data[0].average_victim_count;
+            // Utilisez l'option 'fr-FR' pour la France, vous pouvez ajuster la locale selon vos besoins.
+            const formattedAverage = parseFloat(average).toLocaleString('fr-FR');
+            resultatRequete.textContent = formattedAverage;
+            //resultatRequete.textContent = `${data[0].average_victim_count}`;
 
             // Affichez les données dans la console
             console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
