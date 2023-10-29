@@ -157,6 +157,8 @@ function submitForm() {
     const precinct = document.getElementById("precinct").value;
     const category = document.getElementById("category").value;
     var monTitre = document.getElementById("monTitre");
+    const loadingElement = document.getElementById('loading');
+    const loadingElement2 = document.getElementById('loading2');
 
     let query_month_count = `
         SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
@@ -389,6 +391,8 @@ function submitForm() {
             //markers = L.layerGroup(); // Créer un nouveau groupe de marqueurs
         }
 
+        loadingElement.style.display = 'block';
+        loadingElement2.style.display = 'block';
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -430,9 +434,14 @@ function submitForm() {
                 }
             });
             mymap.addLayer(markers);
-            
+            loadingElement.style.display = 'none';
+            loadingElement2.style.display = 'none';
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+            console.error(error);
+            loadingElement.style.display = 'none';
+            loadingElement2.style.display = 'none';
+        });
     } else {
         alert('Veuillez sélectionner à la fois l\'année et le quartier.');
     }

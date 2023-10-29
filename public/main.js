@@ -1,6 +1,5 @@
 let myChart;
 let myDonutChart;
-
 // Créer une carte Leaflet
 var mymap = L.map('leafletMap').setView([39.739377, -104.990253], 12);
 
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initialisation du graphique donut avec des données vides
+    // Initialisation du graphique donut avec des données
     myDonutChart = new Chart(donutChartCtx, {
         type: 'doughnut',
         data: {
@@ -164,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             legend: {
                 display: true,
-                position: 'bottom' // Vous pouvez ajuster la position selon vos préférences
+                position: 'bottom'
             }
         }
     });
@@ -177,6 +176,8 @@ function submitForm() {
     const selectedYear = document.getElementById("annee").value;
     const category = document.getElementById("category").value;
     var monTitre = document.getElementById("monTitre");
+    const loadingElement = document.getElementById('loading');
+    const loadingElement2 = document.getElementById('loading2');
 
     if(selectedYear)
     {
@@ -256,7 +257,7 @@ function submitForm() {
             `;
         }
 
-        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        // fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -284,7 +285,7 @@ function submitForm() {
             const labels = data.map(item => moisMap[item.mois]);
             const values = data.map(item => item.nombre_totale);
 
-            // Mettez à jour les données du graphique existant
+            // Mettre à jour les données du graphique existant
             myChart.data.labels = labels;
             myChart.data.datasets[0].data = values;
             myChart.update(); // Mettez à jour le graphique
@@ -293,7 +294,7 @@ function submitForm() {
 
         // ------------------------------------------------
 
-        // Utilisez fetch pour récupérer les données avec la nouvelle requête
+        // fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -307,15 +308,11 @@ function submitForm() {
             const average = data[0].average_victim_count;
             const roundedAverage = parseFloat(average).toFixed(2);
             resultatRequete.textContent = roundedAverage;
-            //resultatRequete.textContent = `${data[0].average_victim_count}`;
         })
         .catch(error => {
             console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
         });
 
-        // ----------------------------------------------------------------------------------
-
-        // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -337,9 +334,6 @@ function submitForm() {
             //console.log('Données récupérées depuis le serveur :', data);
         });
 
-        // ------------------------------------------------------------------------------------------------------------------
-    
-        // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -352,22 +346,16 @@ function submitForm() {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('nombres2');
             const average = data[0].average_victim_count;
-            // Utilisez l'option 'fr-FR' pour la France, vous pouvez ajuster la locale selon vos besoins.
+            // Utilisez l'option 'fr-FR' pour la France
             const formattedAverage = parseFloat(average).toLocaleString('fr-FR');
             resultatRequete.textContent = formattedAverage;
-            //resultatRequete.textContent = `${data[0].average_victim_count}`;
-    
             // Affichez les données dans la console
-            console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
+            //console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
         })
         .catch(error => {
             console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
         });
 
-
-        // ------------------------------------------------------------------------
-
-        // Utilisez fetch pour récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -380,11 +368,9 @@ function submitForm() {
             // Affichez la réponse dans le div "resultatRequete"
             const resultatRequete = document.getElementById('nombres3');
             const average = data[0].average_victim_count;
-            // Utilisez l'option 'fr-FR' pour la France, vous pouvez ajuster la locale selon vos besoins.
+            // Utilisez l'option 'fr-FR' pour la France
             const formattedAverage = parseFloat(average).toLocaleString('fr-FR');
             resultatRequete.textContent = formattedAverage;
-            //resultatRequete.textContent = `${data[0].average_victim_count}`;
-
             // Affichez les données dans la console
             //console.log('Moyenne du nombre de victimes récupérée depuis le serveur :', data[0].average_victim_count);
         })
@@ -392,10 +378,7 @@ function submitForm() {
             console.error('Erreur lors de la récupération de la moyenne du nombre de victimes :', error);
         });
 
-        //--------------------------------------------------------------------------------------------
-        // ----------------------------------------------------------------------------------------
-
-            // Supprimer la couche de chaleur existante
+        // Supprimer la couche de chaleur existante
         if (heat) {
             map.removeLayer(heat);
         }
@@ -404,10 +387,10 @@ function submitForm() {
         if (markers) {
             mymap.removeLayer(markers);
             markers = L.markerClusterGroup();
-            //markers = L.layerGroup(); // Créer un nouveau groupe de marqueurs
         }
 
-        // -------------------------------------------------
+        loadingElement.style.display = 'block';
+        loadingElement2.style.display = 'block';
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -428,9 +411,6 @@ function submitForm() {
                     popupContent += `<b>offense_type_id : </b> ${coord.offense_type_id}<br>`;
                     popupContent += `<b>offense_category_id : </b> ${coord.offense_category_id}<br>`;
 
-                    //popupContent += `<b>first_occurrence_date : </b> ${coord.first_occurrence_date}<br>`;
-                    //popupContent += `<b>last_occurrence_date : </b> ${coord.last_occurrence_date}<br>`;
-                    //popupContent += `<b>reported_date : </b> ${coord.reported_date}<br>`;
                     if (coord.first_occurrence_date) {
                         const firstOccurrenceDate = new Date(coord.first_occurrence_date);
                         const formattedFirstOccurrenceDate = firstOccurrenceDate.toLocaleString('en-US');
@@ -455,12 +435,14 @@ function submitForm() {
                 }
             });
             mymap.addLayer(markers);
-            
+            loadingElement.style.display = 'none';
+            loadingElement2.style.display = 'none';
         })
-        .catch(error => console.error(error));
-        // ---------------------------------------------------------------
-        // ----------------------------------------------------------------
-
+        .catch(error => {
+            console.error(error);
+            loadingElement.style.display = 'none';
+            loadingElement2.style.display = 'none';
+        });
         updateConnectionStatus();
     }else{
         alert('Veuillez sélectionner l\'année au minimum');
@@ -468,11 +450,7 @@ function submitForm() {
 
 };
 
-
-//------------------------------------------------------------------------------------------------------------
 const connectionStatusElement = document.getElementById('connection-status');
-//const connectionButton = document.getElementById('connection-button');
-
 // Fonction pour mettre à jour l'état de connexion
 function updateConnectionStatus() {
   // Effectuez une requête AJAX au point de terminaison '/connection-status' pour obtenir l'état de la connexion
@@ -482,23 +460,14 @@ function updateConnectionStatus() {
         const { status, color } = data;
         connectionStatusElement.textContent = status;
         connectionStatusElement.style.color = color;
-
-        // Mettez à jour le texte du bouton avec l'état de la connexion
-        //connectionButton.textContent = status;
-        //connectionButton.style.color = color;
-
-        // Si l'état de connexion indique une retentative, vous pouvez afficher un message ou effectuer des actions supplémentaires ici
-        if (status === "Retentative de connexion") {
-        // Affichez un message ou effectuez des actions supplémentaires si nécessaire
-        }
     })
     .catch(error => {
         console.error('Erreur lors de la récupération de l\'état de la connexion :', error);
     });
 }
 
-// Mettez à jour l'état de connexion toutes les quelques secondes (par exemple, toutes les 5 secondes)
-setInterval(updateConnectionStatus, 1500);
+// Mettez à jour l'état de connexion toutes les quelques secondes
+setInterval(updateConnectionStatus, 5000);
 
 // Mettez à jour l'état de connexion lors du chargement de la page
 updateConnectionStatus();

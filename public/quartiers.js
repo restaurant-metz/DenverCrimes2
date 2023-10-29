@@ -167,6 +167,8 @@ function submitForm() {
     const quartier = document.getElementById("quartier").value;
     const category = document.getElementById("category").value;
     var monTitre = document.getElementById("monTitre");
+    const loadingElement = document.getElementById('loading');
+    const loadingElement2 = document.getElementById('loading2');
 
     // Vérifiez si les deux sélections ont été faites
     if (annee && quartier) {
@@ -416,7 +418,8 @@ function submitForm() {
         }
 
         // -------------------------------------------------
-
+        loadingElement.style.display = 'block';
+        loadingElement2.style.display = 'block';
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -465,9 +468,14 @@ function submitForm() {
                 }
             });
             mymap.addLayer(markers);
-            
+            loadingElement.style.display = 'none';
+            loadingElement2.style.display = 'none';
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+            console.error(error);
+            loadingElement.style.display = 'none';
+            loadingElement2.style.display = 'none';
+        });
     } else {
         alert('Veuillez sélectionner à la fois l\'année et le quartier.');
     }

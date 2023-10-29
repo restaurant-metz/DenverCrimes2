@@ -65,7 +65,7 @@ myChart = new Chart(ctx, {
     }
 });
 
-// Initialisation du graphique donut avec des données vides
+// Initialisation du graphique donut avec des données
 myDonutChart = new Chart(donutChartCtx, {
     type: 'doughnut',
     data: {
@@ -132,10 +132,12 @@ function submitForm() {
     const annee = document.getElementById("annee_districts").value;
     const district = document.getElementById("district").value;
     const category = document.getElementById("category").value;
+    const loadingElement = document.getElementById('loading');
+    const loadingElement2 = document.getElementById('loading2');
 
     var monTitre = document.getElementById("monTitre");
 
-    // Vérifiez si les deux sélections ont été faites
+    // Vérifier si les deux sélections ont été faites
     if (annee && district) {
         let query_month_count = `
             SELECT month(first_occurrence_date) as mois, count(*) as nombre_totale
@@ -261,8 +263,6 @@ function submitForm() {
             //console.log('Données récupérées depuis le serveur :', data);
         });
 
-        // ------------------------------------------------
-
         // récupérer les données avec la nouvelle requête
         fetch('/donnees', {
             method: 'POST',
@@ -378,7 +378,8 @@ function submitForm() {
         }
 
         // -------------------------------------------------
-
+        loadingElement.style.display = 'block';
+        loadingElement2.style.display = 'block';
         fetch('/donnees', {
             method: 'POST',
             headers: {
@@ -399,9 +400,6 @@ function submitForm() {
                     popupContent += `<b>offense_type_id : </b> ${coord.offense_type_id}<br>`;
                     popupContent += `<b>offense_category_id : </b> ${coord.offense_category_id}<br>`;
 
-                    //popupContent += `<b>first_occurrence_date : </b> ${coord.first_occurrence_date}<br>`;
-                    //popupContent += `<b>last_occurrence_date : </b> ${coord.last_occurrence_date}<br>`;
-                    //popupContent += `<b>reported_date : </b> ${coord.reported_date}<br>`;
                     if (coord.first_occurrence_date) {
                         const firstOccurrenceDate = new Date(coord.first_occurrence_date);
                         const formattedFirstOccurrenceDate = firstOccurrenceDate.toLocaleString('en-US');
@@ -422,14 +420,19 @@ function submitForm() {
 
 
                     popupContent += `<b>victim_count : </b> ${coord.victim_count}<br>`;
-                    marker.bindPopup(popupContent); // Associez la popup au marqueur
+                    marker.bindPopup(popupContent); // Associer la popup au marqueur
                     markers.addLayer(marker);
                 }
             });
             mymap.addLayer(markers);
-            
+            loadingElement.style.display = 'none';
+            loadingElement2.style.display = 'none';
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+            console.error(error);
+            loadingElement.style.display = 'none';
+            loadingElement2.style.display = 'none';
+        });
     } else {
         alert('Veuillez sélectionner à la fois l\'année et le quartier.');
     }

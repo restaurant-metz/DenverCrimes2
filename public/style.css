@@ -20,6 +20,7 @@ body{
   background-repeat: repeat-x;
   background-size: auto cover;
   animation: defilement 60s linear infinite;
+  min-width: 375px;
 }
 
 @keyframes defilement {
@@ -151,6 +152,7 @@ button:hover {
     background-size: cover;
     justify-content: space-around;
     padding-top: 20px;
+    min-width: 375px;
   }
 
   .menu_gauche {
@@ -327,4 +329,25 @@ a {
 .leafletMap, .heatMap {
   height: 100%; 
   width: 100%;
+}
+
+.denvergovlink{
+    color: blue;
+    text-decoration: none;
+}
+
+.denvergovlink:hover {
+  text-decoration: underline; 
+}
+
+#loading, #loading2{
+  position: absolute; 
+  z-index: 999; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader {
+  position: relative;
 }
