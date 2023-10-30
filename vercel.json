@@ -1,8 +1,8 @@
 {
-    "routes": [
+    "version": 2,
+    "builds": [
         {
-            "src": "/connection-status",
-            "dest": "/index.js"
+            "src": "./index.js"
         }
     ]
 }

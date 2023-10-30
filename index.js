@@ -11,6 +11,7 @@ let db;
 
 // Servir les fichiers statiques depuis le répertoire 'public'
 app.use(express.static('public'));
+app.use(express.json());
 
 // Configuration de la base de données
 const dbConfig = {
