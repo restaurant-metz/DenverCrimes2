@@ -16,10 +16,10 @@ const dbConfig = {
   database: "datavizu"
 };
 
-app.use(express.static(path.join(__dirname, 'public')));
+//server.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile('index.html');
 });
 
 // Fonction pour mettre à jour le statut de connexion
