@@ -16,7 +16,6 @@
     ],
     "routes": [
     {
-        "path": "/",
         "src": "index.html"
     }
     ]
