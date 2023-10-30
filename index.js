@@ -4,6 +4,8 @@ const path = require('path');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 
+app.use(express.static('public'));
+
 let connectionStatus = "Connexion en cours...";
 let connectionColor = "green"; // Couleur initiale en vert
 let db;
@@ -15,12 +17,6 @@ const dbConfig = {
   password: 'hASANIBASRI57µ',
   database: "datavizu"
 };
-
-server.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 // Fonction pour mettre à jour le statut de connexion
 function updateConnectionStatus(status, color) {
