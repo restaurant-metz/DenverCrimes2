@@ -19,8 +19,9 @@ const dbConfig = {
   database: "datavizu"//'basbunar2u_denverCrimes'
 };
 
-//app.get('/', (req, res) => {
-//});
+app.get('/', (req, res) => {
+  
+});
 
 // Fonction pour mettre à jour le statut de connexion
 function updateConnectionStatus(status, color) {
