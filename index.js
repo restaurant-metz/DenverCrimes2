@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-app.use(express.static('./public'));
+app.use(express.static('public'));
 
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
-const port = 3210;
+const port = 3329;
 //const dotenv = require('dotenv').config();
 
 let connectionStatus = "Connexion en cours...";
@@ -20,7 +20,6 @@ const dbConfig = {
 };
 
 app.get('/', (req, res) => {
-  res.redirect('index.html');
 });
 
 // Fonction pour mettre à jour le statut de connexion
