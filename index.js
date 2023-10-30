@@ -10,8 +10,11 @@ let connectionColor = "green"; // Couleur initiale en vert
 let db;
 
 // Servir les fichiers statiques depuis le répertoire 'public'
-app.use(express.static('public'));
-app.use(express.json());
+// app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.redirect('/index.html');
+});
 
 // Configuration de la base de donnéess
 const dbConfig = {
@@ -73,9 +76,5 @@ app.listen(port, () => {
 // Exposez l'état de la connexion à un point de terminaison
 app.get('/connection-status', (req, res) => {
   res.json({ status: connectionStatus, color: connectionColor });
-});
-
-app.get('/', (req, res) => {
-  res.redirect('/index.html'); // Assurez-vous que le chemin soit correct
 });
 
