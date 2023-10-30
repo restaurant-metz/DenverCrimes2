@@ -1,9 +1,10 @@
 {
     "version": 2,
     "routes": [
-    {
-        "src": "index.js"
-    }
+        {
+            "src": "/",
+            "dest": "public/index.html"
+        }
     ],
     "builds": [
         {
