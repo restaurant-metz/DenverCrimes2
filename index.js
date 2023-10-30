@@ -76,5 +76,6 @@ app.get('/connection-status', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.redirect('/public/index.html');
+  res.redirect('/index.html'); // Assurez-vous que le chemin soit correct
 });
+
