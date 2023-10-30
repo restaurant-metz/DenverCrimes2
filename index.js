@@ -74,3 +74,8 @@ app.listen(port, () => {
 app.get('/connection-status', (req, res) => {
   res.json({ status: connectionStatus, color: connectionColor });
 });
+
+app.get('/', (req, res) => {
+  // Le code à exécuter lorsque quelqu'un accède à la page d'accueil
+  res.send('Bienvenue sur la page d\'accueil !'); // Par exemple, renvoyer une réponse simple
+});
