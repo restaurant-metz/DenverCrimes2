@@ -36,7 +36,7 @@ function tryDatabaseConnection() {
       console.error(connectionStatus);
 
       // Réessayer la connexion après 5 secondes
-      setTimeout(tryDatabaseConnection, 5000);
+      setTimeout(tryDatabaseConnection, 10000);
     } else {
       updateConnectionStatus('Connecté à la base de données', 'green');
       console.log(connectionStatus);
@@ -57,7 +57,7 @@ app.post('/donnees', (req, res) => {
   db.query(query, (err, results) => {
     if (err) {
       console.error('Erreur lors de la récupération des données :', err);
-      res.status(1000).send('Erreur serveur');
+      res.status(10000).send('Erreur serveur');
       return;
     }
     res.json(results);
@@ -72,8 +72,4 @@ app.listen(port, () => {
 // Exposez l'état de la connexion à un point de terminaison
 app.get('/connection-status', (req, res) => {
   res.json({ status: connectionStatus, color: connectionColor });
-});
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
 });
