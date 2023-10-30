@@ -15,10 +15,10 @@ app.use(express.json());
 
 // Configuration de la base de donnéess
 const dbConfig = {
-  host: "localhost",//process.env.DB_HOST,
-  user: 'root',
-  password: process.env.DB_PASSWORD,
-  database: "denverCrimes"//'basbunar2u_denverCrimes'
+  host: "db4free.net",//process.env.DB_HOST,
+  user: 'hasanbb',
+  password: 'hASANIBASRI57µ',
+  database: "datavizu"//'basbunar2u_denverCrimes'
 };
 
 // Fonction pour mettre à jour le statut de connexion
