@@ -19,8 +19,8 @@ const dbConfig = {
   database: "datavizu"//'basbunar2u_denverCrimes'
 };
 
-app.get('/', (req, res) => {
-});
+//app.get('/', (req, res) => {
+//});
 
 // Fonction pour mettre à jour le statut de connexion
 function updateConnectionStatus(status, color) {
@@ -38,7 +38,7 @@ function tryDatabaseConnection() {
       console.error(connectionStatus);
 
       // Réessayer la connexion après 5 secondes
-      setTimeout(tryDatabaseConnection, 1000);
+      setTimeout(tryDatabaseConnection, 10000);
     } else {
       updateConnectionStatus('Connecté à la base de données', 'green');
       console.log(connectionStatus);
