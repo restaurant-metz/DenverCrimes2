@@ -1,12 +1,19 @@
 const express = require('express');
-const app = express();
+//const app = express();
 const path = require('path');
 
-app.use(express.static('public'));
+var server = express();
+server.use(express.static(__dirname + '/public'));
+
+server.get('*', function(req, res){
+  res.sendFile('index.html');
+});
+
+//app.use(express.static('public'));
 
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
-const port = 3000;
+//const port = 3000;
 //const dotenv = require('dotenv').config();
 
 let connectionStatus = "Connexion en cours...";
@@ -20,6 +27,10 @@ const dbConfig = {
   password: 'hASANIBASRI57µ',
   database: "datavizu"//'basbunar2u_denverCrimes'
 };
+
+app.get('/', (req, res) => {
+  res.send('Bienvenue');
+});
 
 // Fonction pour mettre à jour le statut de connexion
 function updateConnectionStatus(status, color) {
@@ -65,10 +76,15 @@ app.post('/donnees', (req, res) => {
   });
 });
 
-// Démarrer le serveur
-app.listen(port, () => {
-  console.log(`Serveur Node.js en cours d'exécution sur le port ${port}`);
+var port = 10001;
+server.listen(port, function() {
+    console.log('server listening on port ' + port);
 });
+
+// Démarrer le serveur
+//app.listen(port, () => {
+//  console.log(`Serveur Node.js en cours d'exécution sur le port ${port}`);
+//});
 
 // Exposez l'état de la connexion à un point de terminaison
 app.get('/connection-status', (req, res) => {
