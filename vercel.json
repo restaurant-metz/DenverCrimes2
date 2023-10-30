@@ -1,1 +1,1 @@
-{ "version": 2, "routes": [ { "src": "index.js", "dest": "index.js" } ] } 
+{ "version": 2, "routes": [ { "src": "/", "dest": "public" } ] } 
