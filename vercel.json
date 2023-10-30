@@ -23,6 +23,5 @@
         "path": "/connection-status",
         "src": "index.html"
     }
-    ],   
-    "build-in-progress": true
+    ]
 }
