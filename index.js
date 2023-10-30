@@ -14,10 +14,10 @@ app.use(express.static('public'));
 
 // Configuration de la base de données
 const dbConfig = {
-  host: "localhost",//process.env.DB_HOST,
-  user: "root",//'basbunar2u_appli',
+  host: 'db4free.net',//"localhost",//process.env.DB_HOST,
+  user: "hasanbb",//'basbunar2u_appli',
   password: process.env.DB_PASSWORD,
-  database: "denverCrimes"//'basbunar2u_denverCrimes'
+  database: "datavizu"//'basbunar2u_denverCrimes'
 };
 
 // Fonction pour mettre à jour le statut de connexion
@@ -45,7 +45,7 @@ function tryDatabaseConnection() {
 }
 
 // Initialiser la tentative de connexion
-//tryDatabaseConnection();
+tryDatabaseConnection();
 
 // Utilisez bodyParser pour analyser les données JSON
 app.use(bodyParser.json());
