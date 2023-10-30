@@ -10,6 +10,8 @@ let connectionStatus = "Connexion en cours...";
 let connectionColor = "green"; // Couleur initiale en vert
 let db;
 
+
+//test
 // Configuration de la base de données
 const dbConfig = {
   host: "db4free.net",
