@@ -450,6 +450,7 @@ function submitForm() {
 
 };
 
+/*
 const connectionStatusElement = document.getElementById('connection-status');
 // Fonction pour mettre à jour l'état de connexion
 function updateConnectionStatus() {
@@ -471,3 +472,4 @@ setInterval(updateConnectionStatus, 5000);
 
 // Mettez à jour l'état de connexion lors du chargement de la page
 updateConnectionStatus();
+*/
