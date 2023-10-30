@@ -20,7 +20,7 @@ const dbConfig = {
 };
 
 app.get('/', (req, res) => {
-  res.redirect('./index.html');
+  res.send('Bienvenue');
 });
 
 // Fonction pour mettre à jour le statut de connexion
