@@ -1,19 +1,5 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "src",
-            "use": "@vercel/static-build",
-            "config": {
-                "distDir": "dist"
-            }
-        },
-        {
-            "src": "node_modules",
-            "use": "@vercel/npm-build",
-            "config": {}
-        }
-    ],
     "routes": [
     {
         "src": "index.html"
