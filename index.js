@@ -16,10 +16,10 @@ const dbConfig = {
   database: "datavizu"
 };
 
-//server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile('index.html');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Fonction pour mettre à jour le statut de connexion
@@ -65,7 +65,7 @@ app.post('/donnees', (req, res) => {
   });
 });
 
-const port = process.env.PORT || 10001;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Serveur Node.js en cours d'exécution sur le port ${port}`);
