@@ -2,7 +2,7 @@
     "routes": [
         {
             "src": "/connection-status",
-            "dest": "index.js"
+            "dest": "./index.js"
         }
     ]
 }
