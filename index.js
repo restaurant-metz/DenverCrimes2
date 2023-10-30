@@ -1,5 +1,13 @@
 const express = require('express');
 const app = express();
+const path = require('path');
+app.set('view engine', 'ejs');
+
+app.get ('^', (req, res) => {
+  res.render ('index', { title: 'Welcome to my app' });
+  return res.redirect ('/');
+});  
+
 app.use(express.static('public'));
 
 const mysql = require('mysql2');
