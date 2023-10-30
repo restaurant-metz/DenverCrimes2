@@ -13,7 +13,7 @@ let db;
 // app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.redirect('/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 // Configuration de la base de donnéess
