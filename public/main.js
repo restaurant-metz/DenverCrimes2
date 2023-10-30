@@ -443,7 +443,7 @@ function submitForm() {
             loadingElement.style.display = 'none';
             loadingElement2.style.display = 'none';
         });
-        updateConnectionStatus();
+        //updateConnectionStatus();
     }else{
         alert('Veuillez sélectionner l\'année au minimum');
     }
