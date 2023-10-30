@@ -45,7 +45,7 @@ function tryDatabaseConnection() {
 }
 
 // Initialiser la tentative de connexion
-tryDatabaseConnection();
+//tryDatabaseConnection();
 
 // Utilisez bodyParser pour analyser les données JSON
 app.use(bodyParser.json());
