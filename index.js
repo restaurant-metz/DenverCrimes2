@@ -1,20 +1,15 @@
 const express = require('express');
-const mysql = require('mysql2');
 const app = express();
+app.use(express.static('public'));
+
+const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const port = 3210;
-const dotenv = require('dotenv').config();
+//const dotenv = require('dotenv').config();
 
 let connectionStatus = "Connexion en cours...";
 let connectionColor = "green"; // Couleur initiale en vert
 let db;
-
-// Servir les fichiers statiques depuis le répertoire 'public'
-// app.use(express.static('public'));
-
-app.get('/', (req, res) => {
-  res.redirect(__dirname + '/public/index.html');
-});
 
 // Configuration de la base de donnéess
 const dbConfig = {
