@@ -6,6 +6,11 @@ const bodyParser = require('body-parser');
 
 app.use(express.static('public'));
 
+app.get('/', (req, res) => {
+  res.send('Bienvenue sur mon application!');
+});
+
+
 let connectionStatus = "Connexion en cours...";
 let connectionColor = "green"; // Couleur initiale en vert
 let db;
