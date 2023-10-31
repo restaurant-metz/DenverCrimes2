@@ -405,6 +405,7 @@ function submitForm() {
             heat = L.heatLayer(heatData, { radius: 25 }).addTo(map);
 
             data.forEach(coord => {
+                /*
                 if(coord.geo_lat && coord.geo_lon) {
                     var marker = L.marker([coord.geo_lat, coord.geo_lon]);
                     var popupContent = `<b>Adresse :</b> ${coord.incident_address}<br>`;
@@ -433,6 +434,7 @@ function submitForm() {
                     marker.bindPopup(popupContent); // Associez la popup au marqueur
                     markers.addLayer(marker);
                 }
+                */
             });
             mymap.addLayer(markers);
             loadingElement.style.display = 'none';
