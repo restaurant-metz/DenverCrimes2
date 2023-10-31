@@ -396,7 +396,8 @@ function submitForm() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ query: query_geo_lat_lon })
+            body: JSON.stringify({ query: query_geo_lat_lon }),
+            timeout: 10000,
         })
         .then(response => response.json())
         .then(data => {
