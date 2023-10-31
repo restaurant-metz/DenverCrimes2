@@ -83,12 +83,13 @@ app.post('/donnees', (req, res) => {
   db.query(paginatedQuery, (err, results) => {
     if (err) {
       console.error('Erreur lors de la récupération des données :', err);
-      res.status(500).send('Erreur serveur');
+      res.status(500).json({ error: 'Erreur serveur' });
       return;
     }
     res.json(results);
   });
 });
+
 
 
 const port = process.env.PORT || 3000;
