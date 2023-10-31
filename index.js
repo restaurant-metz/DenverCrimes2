@@ -4,7 +4,8 @@ const path = require('path');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 
-app.use(express.static('public'));
+
+app.use(express.static(__dirname + '/public'));
 
 let connectionStatus = "Connexion en cours...";
 let connectionColor = "green"; // Couleur initiale en vert
