@@ -96,7 +96,7 @@ app.post('/donnees', (req, res) => {
     });
   });
 });
-
+// test
 
 app.listen(port, () => {
   console.log(`Serveur Node.js en cours d'exécution sur le port ${port}`);
