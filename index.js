@@ -70,29 +70,25 @@ app.post('/donnees', (req, res) => {
 });
 */
 // Créez un pool de connexions
-const pool = mysql.createPool(dbConfig);
+//const pool = mysql.createPool(dbConfig);
 
 app.post('/donnees', (req, res) => {
-  const query = req.body.query;
+  const page = req.body.page;  // numéro de page
+  const pageSize = req.body.pageSize;  // taille de page
 
-  // Utilisez une connexion du pool
-  pool.getConnection((err, connection) => {
+  // Calculer l'offset
+  const offset = (page - 1) * pageSize;
+
+  // Ajouter LIMIT et OFFSET à la requête
+  const paginatedQuery = `${req.body.query} LIMIT ${pageSize} OFFSET ${offset}`;
+
+  db.query(paginatedQuery, (err, results) => {
     if (err) {
-      console.error('Erreur lors de la récupération de la connexion :', err);
-      res.status(500).send('Erreur serveur');
+      console.error('Erreur lors de la récupération des données :', err);
+      res.status(500).json({ error: 'Erreur serveur' });
       return;
     }
-
-    connection.query(query, (err, results) => {
-      connection.release(); // Libérez la connexion après utilisation
-
-      if (err) {
-        console.error('Erreur lors de la récupération des données :', err);
-        res.status(500).send('Erreur serveur');
-        return;
-      }
-      res.json(results);
-    });
+    res.json(results);
   });
 });
 
