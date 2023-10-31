@@ -55,7 +55,7 @@ tryDatabaseConnection();
 // Utilisez bodyParser pour analyser les données JSON
 app.use(bodyParser.json());
 
-
+/*
 app.post('/donnees', (req, res) => {
   const query = req.body.query;
 
@@ -68,6 +68,35 @@ app.post('/donnees', (req, res) => {
     res.json(results);
   });
 });
+*/
+
+// Créez un pool de connexions
+const pool = mysql.createPool(dbConfig);
+
+// Utilisez le pool de connexions pour gérer les connexions
+app.post('/donnees', (req, res) => {
+  const query = req.body.query;
+
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error("Erreur lors de l'obtention de la connexion :", err);
+      res.status(500).send('Erreur serveur');
+      return;
+    }
+
+    connection.query(query, (err, results) => {
+      connection.release(); // Libérez la connexion après utilisation
+
+      if (err) {
+        console.error('Erreur lors de la récupération des données :', err);
+        res.status(500).send('Erreur serveur');
+        return;
+      }
+      res.json(results);
+    });
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Serveur Node.js en cours d'exécution sur le port ${port}`);
