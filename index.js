@@ -55,6 +55,7 @@ tryDatabaseConnection();
 // Utilisez bodyParser pour analyser les données JSON
 app.use(bodyParser.json());
 
+/*
 app.post('/donnees', (req, res) => {
   const query = req.body.query;
 
@@ -67,6 +68,28 @@ app.post('/donnees', (req, res) => {
     res.json(results);
   });
 });
+*/
+
+app.post('/donnees', (req, res) => {
+  const page = req.body.page;  // numéro de page
+  const pageSize = req.body.pageSize;  // taille de page
+
+  // Calculer l'offset
+  const offset = (page - 1) * pageSize;
+
+  // Ajouter LIMIT et OFFSET à la requête
+  const paginatedQuery = `${req.body.query} LIMIT ${pageSize} OFFSET ${offset}`;
+
+  db.query(paginatedQuery, (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des données :', err);
+      res.status(500).send('Erreur serveur');
+      return;
+    }
+    res.json(results);
+  });
+});
+
 
 const port = process.env.PORT || 3000;
 
