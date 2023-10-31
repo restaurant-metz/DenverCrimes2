@@ -41,7 +41,7 @@ function tryDatabaseConnection() {
       console.error(connectionStatus);
 
       // Réessayer la connexion après 5 secondes
-      setTimeout(tryDatabaseConnection, 10000);
+      setTimeout(tryDatabaseConnection, 5000);
     } else {
       updateConnectionStatus('Connecté à la base de données', 'green');
       console.log(connectionStatus);
@@ -55,7 +55,7 @@ tryDatabaseConnection();
 // Utilisez bodyParser pour analyser les données JSON
 app.use(bodyParser.json());
 
-
+/*
 app.post('/donnees', (req, res) => {
   const query = req.body.query;
 
@@ -68,10 +68,36 @@ app.post('/donnees', (req, res) => {
     res.json(results);
   });
 });
+*/
+// Créez un pool de connexions
+const pool = mysql.createPool(dbConfig);
+
+app.post('/donnees', (req, res) => {
+  const query = req.body.query;
+
+  // Utilisez une connexion du pool
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error('Erreur lors de la récupération de la connexion :', err);
+      res.status(500).send('Erreur serveur');
+      return;
+    }
+
+    connection.query(query, (err, results) => {
+      connection.release(); // Libérez la connexion après utilisation
+
+      if (err) {
+        console.error('Erreur lors de la récupération des données :', err);
+        res.status(500).send('Erreur serveur');
+        return;
+      }
+      res.json(results);
+    });
+  });
+});
 
 
-
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 app.listen(port, () => {
   console.log(`Serveur Node.js en cours d'exécution sur le port ${port}`);
