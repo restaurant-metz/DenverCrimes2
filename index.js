@@ -3,14 +3,14 @@ const app = express();
 const path = require('path');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
+const port = 3000;
 
 
 app.use(express.static(__dirname + '/public'));
 
-
-//app.get('/', function(req, res){
-//  res.render('index.js');
-//});
+app.get('/', function(req, res){
+  res.render('index.js');
+});
 
 
 let connectionStatus = "Connexion en cours...";
@@ -55,7 +55,7 @@ tryDatabaseConnection();
 // Utilisez bodyParser pour analyser les données JSON
 app.use(bodyParser.json());
 
-/*
+
 app.post('/donnees', (req, res) => {
   const query = req.body.query;
 
@@ -68,32 +68,6 @@ app.post('/donnees', (req, res) => {
     res.json(results);
   });
 });
-*/
-// Créez un pool de connexions
-//const pool = mysql.createPool(dbConfig);
-
-app.post('/donnees', (req, res) => {
-  const page = req.body.page;  // numéro de page
-  const pageSize = req.body.pageSize;  // taille de page
-
-  // Calculer l'offset
-  const offset = (page - 1) * pageSize;
-
-  // Ajouter LIMIT et OFFSET à la requête
-  const paginatedQuery = `${req.body.query} LIMIT ${pageSize} OFFSET ${offset}`;
-
-  db.query(paginatedQuery, (err, results) => {
-    if (err) {
-      console.error('Erreur lors de la récupération des données :', err);
-      res.status(500).json({ error: 'Erreur serveur' });
-      return;
-    }
-    res.json(results);
-  });
-});
-
-
-const port = 3000;
 
 app.listen(port, () => {
   console.log(`Serveur Node.js en cours d'exécution sur le port ${port}`);
